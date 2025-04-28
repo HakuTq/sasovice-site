@@ -2,26 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+$main-color: rgb(55, 55, 197);
+
+body {
+    font-family: 'Roboto Slab', serif;
+}
+
+// Navbar
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 0;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    color: white;
+    z-index: 10;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-left {
     display: flex;
     align-items: center;
     gap: .5rem;
+    margin-left: 8rem;
 }
 
 .navbar-left a{
     font-size: 2rem;
-    font-weight: bold;
     text-decoration: none;
 }
 
@@ -30,10 +43,463 @@
     align-items: center;
     gap: 1rem;
     margin-left: auto;
+    margin-right: 8rem;
 }
 
 .navbar-link {
     text-decoration: none;
     font-size: 1.2rem;
-    padding: .5rem 1rem;
+    margin: .5rem 1rem;
+    position: relative;
+
+    &:not(.active) {
+        &:hover::after {
+            width: 100%;
+            background: white;
+        }
+    }
+
+    &.active {
+        color: $main-color !important;
+        cursor: default;
+        pointer-events: none;
+        
+        &::after {
+            width: 100% !important;
+            background: $main-color !important;
+        }
+    }
+}
+
+.navbar-link::after {
+    transition: .5s;
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: white;
+    left: 50%;
+    bottom: -5%;
+    transform: translate(-50%, -50%);
+}
+  
+.navbar-link:hover::after {
+    width: 100%;
+}
+
+.navbar-logo {
+    width: 50px;
+    height: auto;
+}
+
+// Welcome img
+.welcome-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.welcome-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.welcome-img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    pointer-events: none;
+}
+
+
+// News
+.news-section {
+    background: white;
+    padding: 4rem 8rem;
+    position: relative;
+  
+    .news-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+  
+    .news-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  
+    .news-article {
+      padding: 1rem 3rem 1rem 0;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+  
+      &:hover {
+        transform: translateX(5px);
+  
+        .news-title::after {
+          width: 100%;
+        }
+  
+        .article-icon {
+          opacity: 1;
+          transform: translateY(-50%) translateX(0);
+          color: $main-color;
+        }
+      }
+  
+      .article-icon {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%) translateX(20px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 24px;
+        height: 24px;
+        color: #ddd;
+      }
+  
+      .news-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+  
+        .news-category {
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.875rem;
+          letter-spacing: 0.5px;
+          color: $main-color;
+        }
+  
+        .news-date {
+          font-size: 0.875rem;
+          color: #666;
+        }
+      }
+  
+      .news-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #222;
+        position: relative;
+        display: inline-block;
+        padding-right: 1rem;
+  
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: currentColor;
+          transition: width 0.3s ease;
+        }
+      }
+  
+      .news-excerpt {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #666;
+        margin: 0;
+      }
+    }
+  
+    .news-divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 1rem 0;
+    }
+  
+    .view-all {
+      display: inline-block;
+      margin-top: 2rem;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+  
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background-color: #333;
+        transition: width 0.3s ease;
+      }
+  
+      &:hover::after {
+        width: 100%;
+      }
+    }
+}
+
+
+// Footer
+.site-footer {
+    background-color: darken($main-color, 15%);
+    color: white;
+    position: relative;
+
+    .footer-map {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding-bottom: 20px;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        padding: 3rem 8rem 2rem;
+        border-bottom: 1px solid rgba(white, 0.1);
+    }
+
+    .footer-section {
+        margin-bottom: 2rem;
+
+        .footer-heading {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 2px;
+                background-color: rgba(white, 0.3);
+            }
+        }
+
+        .footer-list {
+            list-style: none;
+            padding: 0;
+
+            li {
+                margin-bottom: 0.75rem;
+
+                a {
+                    color: rgba(white, 0.8);
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -2px;
+                        left: 0;
+                        width: 0;
+                        height: 1px;
+                        background-color: white;
+                        transition: width 0.3s ease;
+                    }
+
+                    &:hover {
+                        color: white;
+
+                        &::after {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+
+        .social-link {
+            color: rgba(white, 0.8);
+            transition: all 0.3s ease;
+
+            .social-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            &:hover {
+                color: white;
+                transform: translateY(-3px);
+            }
+        }
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: rgba(white, 0.7);
+    }
+
+    @media (max-width: 768px) {
+        .footer-content {
+            padding: 2rem 1.5rem;
+            grid-template-columns: 1fr;
+        }
+
+        .footer-map {
+            height: 200px;
+        }
+    }
+}
+
+// About
+.village-info {
+    padding: 4rem 8rem;
+    background: #f9fafb;
+
+    .village-header {
+        text-align: center;
+        margin-bottom: 3rem;
+
+        .village-title {
+            font-size: 2.5rem;
+            color: $main-color;
+            margin-bottom: 0.5rem;
+        }
+
+        .village-subtitle {
+            font-size: 1.25rem;
+            color: #666;
+        }
+    }
+
+    .village-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
+
+            .stat-icon {
+                width: 48px;
+                height: 48px;
+                color: $main-color;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+                color: #222;
+                margin-bottom: 0.25rem;
+            }
+
+            .stat-label {
+                color: #666;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .village-history {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 4rem;
+
+        .history-content {
+            .history-title {
+                font-size: 1.75rem;
+                color: $main-color;
+                margin-bottom: 1.5rem;
+            }
+
+            .history-text {
+                line-height: 1.6;
+                color: #444;
+                margin-bottom: 2rem;
+            }
+
+            .history-highlights {
+                display: flex;
+                gap: 2rem;
+
+                .highlight-item {
+                    text-align: center;
+                    padding: 1rem;
+                    background: rgba($main-color, 0.1);
+                    border-radius: 8px;
+
+                    .highlight-year {
+                        display: block;
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: $main-color;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .highlight-text {
+                        font-size: 0.9rem;
+                        color: #666;
+                    }
+                }
+            }
+        }
+
+        .history-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 2rem 1.5rem;
+
+        .village-history {
+            grid-template-columns: 1fr;
+
+            .history-highlights {
+                flex-direction: column;
+            }
+        }
+
+        .village-stats {
+            grid-template-columns: 1fr;
+        }
+    }
 }

@@ -1,11 +1,25 @@
 <div class="navbar">
     <div class="navbar-left">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="navbar-logo">
+        <img src="{{ asset('storage/images/logo.png') }}" alt="Logo" class="navbar-logo">
         <a href=""> Šašovice </a>
     </div>
     <div class="navbar-right">
-        <a href="" class="navbar-link">Home</a>
-        <a href="" class="navbar-link">About</a>
-        <a href="" class="navbar-link">Contact</a>
+        @if(request()->routeIs('welcome'))
+            <span class="navbar-link active">Obec</span>
+        @else
+            <a href="{{ route('welcome') }}" class="navbar-link">Obec</a>
+        @endif
+
+        @if(request()->routeIs('hs'))
+            <span class="navbar-link active">Honební společenstvo</span>
+        @else
+            <a href="{{ route('hs') }}" class="navbar-link">Honební společenstvo</a>
+        @endif
+
+        @if(request()->routeIs('ff'))
+            <span class="navbar-link active">Hasiči</span>
+        @else
+            <a href="{{ route('ff') }}" class="navbar-link">Hasiči</a>
+        @endif
     </div>
 </div>
