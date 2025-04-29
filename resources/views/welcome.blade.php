@@ -4,7 +4,11 @@
 <div>
     <!-- Galerie -->
     <div class="welcome-img-wrapper">
-        <img class="welcome-img" src="{{ asset('storage/images/sasovice.jpeg') }}" alt="Welcome Image">
+        <img class="welcome-img" 
+            src="{{ asset('storage/images/sasovice.jpeg') }}" 
+            alt="Welcome Image"
+            loading="lazy"
+            decoding="async">
         <div class="welcome-img-overlay"></div>
     </div>
 

@@ -18,6 +18,7 @@
                 <li><a href="/aktuality">Aktuality</a></li>
                 <li><a href="/kontakt">Kontakt</a></li>
                 <li><a href="/dokumenty">Dokumenty</a></li>
+                <li><a href="/login">Přihlášení</a></li>
             </ul>
         </div>
 
