@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="navbar-left">
         <img src="{{ asset('storage/images/logo.png') }}" alt="Logo" class="navbar-logo">
-        <a href=""> Šašovice </a>
+        <a href="{{ route('welcome') }}"> Šašovice </a>
     </div>
     <div class="navbar-right">
         @if(request()->routeIs('welcome'))

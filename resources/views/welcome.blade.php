@@ -12,8 +12,8 @@
         <div class="welcome-img-overlay"></div>
     </div>
 
-    <!-- Sekce O obci -->
-    <div class="village-info">
+    <!-- Sekce o obci -->
+    <div class="village-info" id="village-info">
         <div class="village-header">
             <h2 class="village-title">Obec Šašovice</h2>
             <p class="village-subtitle">Malebná vesnice v srdci Vysočiny</p>
@@ -113,7 +113,7 @@
             </a>
         </div>
     
-        <a href="#" class="view-all">Zobrazit vše</a>
+        <a href="{{ route('news.index') }}" class="view-all">Zobrazit vše</a>
     </div>
 </div>
 @endsection

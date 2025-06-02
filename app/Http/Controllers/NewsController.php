@@ -12,7 +12,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $news = News::paginate(6);
+            return view('news.index', compact('news'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to retrieve news: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -57,7 +63,12 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        try {
+            $news = News::findOrFail($news->id);
+            return view('news.show', compact('news'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Failed to retrieve news: ' . $e->getMessage()]);
+        }
     }
 
     /**

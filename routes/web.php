@@ -15,6 +15,10 @@ Route::get('/hasici', function () {
     return view('ff');
 })->name('ff');
 
+// aktuality
+Route::get('/news', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{news}', [\App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

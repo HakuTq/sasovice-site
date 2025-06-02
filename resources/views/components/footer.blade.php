@@ -14,11 +14,9 @@
         <div class="footer-section">
             <h3 class="footer-heading">Rychlé odkazy</h3>
             <ul class="footer-list">
-                <li><a href="/o-nas">O obci</a></li>
-                <li><a href="/aktuality">Aktuality</a></li>
-                <li><a href="/kontakt">Kontakt</a></li>
-                <li><a href="/dokumenty">Dokumenty</a></li>
-                <li><a href="/login">Přihlášení</a></li>
+                <li><a href="#village-info">O obci</a></li>
+                <li><a href="{{ route('news.index') }}">Aktuality</a></li>
+                <li><a href="{{ route('login') }}">Přihlášení</a></li>
             </ul>
         </div>
 

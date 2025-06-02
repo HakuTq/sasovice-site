@@ -60,7 +60,6 @@ body {
     }
 
     &.active {
-        color: $main-color !important;
         cursor: default;
         pointer-events: none;
         
