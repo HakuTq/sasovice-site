@@ -10,10 +10,10 @@
             <a href="{{ route('welcome') }}" class="navbar-link">Obec</a>
         @endif
 
-        @if(request()->routeIs('hs'))
+        @if(request()->routeIs('hunting.association'))
             <span class="navbar-link active">Honební společenstvo</span>
         @else
-            <a href="{{ route('hs') }}" class="navbar-link">Honební společenstvo</a>
+            <a href="{{ route('hunting.association') }}" class="navbar-link">Honební společenstvo</a>
         @endif
 
         @if(request()->routeIs('ff'))

@@ -16,7 +16,7 @@
             <ul class="footer-list">
                 <li><a href="#village-info">O obci</a></li>
                 <li><a href="{{ route('news.index') }}">Aktuality</a></li>
-                <li><a href="{{ route('login') }}">Přihlášení</a></li>
+                <li><a href="{{ route('register') }}">Přihlášení</a></li>
             </ul>
         </div>
 
