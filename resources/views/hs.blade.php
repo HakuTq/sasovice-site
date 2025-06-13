@@ -38,15 +38,28 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="hs-section">
+        <section class="hs-section">
         <div class="section-container">
             <h2 class="hs-heading">Galerie</h2>
-            <div class="hs-gallery">
-                @for ($i = 0; $i < 8; $i++)
-                <div class="gallery-item">
-                    Fotka {{ $i+1 }}
+            
+            <!-- Swiper container -->
+            <div class="swiper hs-gallery">
+                <div class="swiper-wrapper">
+                    @for ($i = 0; $i < 8; $i++)
+                    <div class="swiper-slide">
+                        <div class="gallery-item">
+                            Fotka {{ $i+1 }}
+                        </div>
+                    </div>
+                    @endfor
                 </div>
-                @endfor
+                
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
@@ -158,6 +171,7 @@
     </section>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const iframe = document.getElementById('map-iframe');
@@ -185,6 +199,31 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Resize on window change
     window.addEventListener('resize', resizeIframe);
+
+            const gallerySwiper = new Swiper('.hs-gallery', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+                1280: {
+                    slidesPerView: 4,
+                }
+            }
+        });
 });
 
 document.getElementById('prev-month').addEventListener('click', function() {

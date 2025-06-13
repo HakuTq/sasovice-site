@@ -8,14 +8,12 @@ use Carbon\Carbon;
 
 class HuntingAssociationController extends Controller
 {
-    // Coordinates for Šašovice (replace with your exact coordinates)
     const LATITUDE = 49.1236;
     const LONGITUDE = 16.3533;
     const TIMEZONE = 'Europe/Prague';
 
     public function index(Request $request)
     {
-        // Get month from query parameter or use current month
         $monthParam = $request->query('month');
         
         try {
@@ -99,14 +97,13 @@ class HuntingAssociationController extends Controller
     
     private function calculateSunrise(Carbon $date)
     {
-        // Use PHP's built-in function
         $sunrise = date_sunrise(
             $date->timestamp, 
             SUNFUNCS_RET_STRING, 
             self::LATITUDE, 
             self::LONGITUDE,
-            90, // Zenith angle (90° for sunrise/sunset)
-            1   // GMT offset in hours
+            90,
+            1
         );
         
         return $sunrise ?: sprintf('%02d:%02d', rand(5, 7), rand(0, 59));
@@ -114,14 +111,13 @@ class HuntingAssociationController extends Controller
     
     private function calculateSunset(Carbon $date)
     {
-        // Use PHP's built-in function
         $sunset = date_sunset(
             $date->timestamp, 
             SUNFUNCS_RET_STRING, 
             self::LATITUDE, 
             self::LONGITUDE,
-            90, // Zenith angle
-            1   // GMT offset
+            90,
+            1
         );
         
         return $sunset ?: sprintf('%02d:%02d', rand(17, 20), rand(0, 59));

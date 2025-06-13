@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+
 $main-color: rgb(55, 55, 197);
 $primary: rgb(55, 55, 197);
 
@@ -11,6 +13,7 @@ html {
 
 body {
     font-family: 'Roboto Slab', serif;
+    overflow-x: hidden;
 }
 
 // Navbar
@@ -586,7 +589,6 @@ body {
         }
     }
 
-    // Responsive adjustments
     @media (max-width: 1200px) {
         .astro-info {
             font-size: 0.55rem;
@@ -614,12 +616,6 @@ body {
             .astro-time {
                 min-width: 1.4rem;
             }
-        }
-    }
-
-    @media (max-width: 768px) {
-        .astro-info {
-            display: none; // Hide on mobile
         }
     }
     
@@ -772,417 +768,416 @@ body {
         justify-content: center;
     }
 
-// Hunting Calendar Styles
-$main-color: rgb(55, 55, 197);
-$category-colors: (
-    'Spárkatá zvěř': #4c7c9c,
-    'Pernatá zvěř': #8e6c88,
-    'Šelmy a ostatní': #c46b3e
-);
+    // Hunting Calendar Styles
+    $main-color: rgb(55, 55, 197);
+    $category-colors: (
+        'Spárkatá zvěř': #4c7c9c,
+        'Pernatá zvěř': #8e6c88,
+        'Šelmy a ostatní': #c46b3e
+    );
 
-.hs-calendar {
-    width: 100%;
-    overflow: hidden;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    padding: 1.5rem;
-    
-    .calendar-controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.8rem;
+    .hs-calendar {
+        width: 100%;
+        overflow: hidden;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 1.5rem;
         
-        .current-month {
-            font-size: 1.4rem; // Slightly larger
-            font-weight: 600;
-            color: $main-color;
-        }
-        
-        .nav-buttons {
+        .calendar-controls {
             display: flex;
-            gap: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
             
-            button {
-                background: $main-color;
-                color: white;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background 0.3s;
-                font-size: 1rem; // Larger text
-                
-                &:hover {
-                    background: darken($main-color, 10%);
-                }
-            }
-        }
-    }
-    
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-        gap: 5px; // Slightly larger gap
-        margin-bottom: 1rem;
-        
-        .day-header {
-            text-align: center;
-            font-weight: 600;
-            padding: 0.5rem 0; // More padding
-            background: rgba($main-color, 0.1);
-            border-radius: 4px;
-            font-size: 1rem; // Larger text
-        }
-        
-        .calendar-day {
-            aspect-ratio: 1/1;
-            min-height: 0;
-            background: #f9f9f9;
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            padding: 0.3rem; // More padding
-            position: relative;
-            border: 1px solid #eee;
-            
-            &.current-month {
-                background: white;
-                
-                &.today {
-                    background: rgba($main-color, 0.1);
-                    border-color: $main-color;
-                }
-            }
-            
-            &.other-month {
-                background: #f0f0f0;
-                color: #999;
-            }
-            
-            .day-number {
+            .current-month {
+                font-size: 1.4rem;
                 font-weight: 600;
-                font-size: 1.1rem; // Larger text
-                margin-bottom: 0.2rem; // More space
-                text-align: right;
-                padding: 0 0.3rem; // More padding
+                color: $main-color;
             }
             
-            .game-list {
-                flex-grow: 1;
-                overflow-y: auto;
-                max-height: 80px; // Slightly taller
-                padding: 0.2rem; // More padding
+            .nav-buttons {
+                display: flex;
+                gap: 0.5rem;
                 
-                .game-item {
-                    margin-bottom: 0.15rem; // More space
-                    padding: 0.25rem 0.4rem; // More padding
-                    border-radius: 3px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    font-size: 0.85rem; // Larger text
+                button {
+                    background: $main-color;
+                    color: white;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: background 0.3s;
+                    font-size: 1rem;
                     
-                    @each $category, $color in $category-colors {
-                        &[data-category="#{$category}"] {
-                            background: rgba($color, 0.1);
-                            border-left: 2px solid $color;
-                        }
+                    &:hover {
+                        background: darken($main-color, 10%);
                     }
                 }
             }
         }
-    }
-    
-    .calendar-events {
-        h3 {
-            font-size: 1.2rem; // Larger text
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #444;
-        }
-        
-        .event-item {
-            display: flex;
-            align-items: center;
-            padding: 0.6rem; // More padding
-            border-radius: 6px;
-            margin-bottom: 0.6rem;
-            background: rgba($main-color, 0.08);
-            border-left: 3px solid $main-color;
-            
-            .event-date {
-                font-weight: 600;
-                min-width: 65px; // Wider
-                color: $main-color;
-                font-size: 1rem; // Larger text
-            }
-            
-            .event-desc {
-                font-size: 1rem; // Larger text
-            }
-        }
-    }
-    
-    // Astronomical information styles (LARGER)
-    .astro-info {
-        margin: 0.2rem 0; // More space
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem; // More space
-        font-size: 0.8rem; // Larger text
-        
-        .sun-info,
-        .moon-info {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem; // More space
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        
-        .astro-icon {
-            width: 1.2rem; // Larger icons
-            height: 1.2rem; // Larger icons
-            flex-shrink: 0;
-            
-            path {
-                stroke-width: 1.5;
-            }
-        }
-        
-        .astro-time {
-            display: inline-block;
-            min-width: 2.5rem; // Wider
-            font-size: 0.8rem; // Larger text
-        }
-        
-        .sun-info {
-            color: #e67700;
-            
-            .astro-icon {
-                stroke: #e67700;
-            }
-        }
-        
-        .moon-info {
-            color: #4d4d8a;
-            
-            .astro-icon {
-                stroke: #4d4d8a;
-            }
-        }
-    }
-    
-    // Responsive adjustments
-    @media (max-width: 1200px) {
-        padding: 1.3rem; // Slightly more padding
         
         .calendar-grid {
-            .calendar-day {
-                .game-item {
-                    font-size: 0.8rem; // Larger text
-                }
-            }
-        }
-        
-        .astro-info {
-            font-size: 0.75rem; // Larger text
-            .astro-icon {
-                width: 1.1rem; // Larger icons
-                height: 1.1rem; // Larger icons
-            }
-        }
-    }
-    
-    @media (max-width: 992px) {
-        .calendar-controls {
-            .current-month {
-                font-size: 1.2rem; // Larger text
-            }
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 5px;
+            margin-bottom: 1rem;
             
-            .nav-buttons button {
-                padding: 0.4rem 0.8rem; // More padding
-                font-size: 0.9rem; // Larger text
-            }
-        }
-        
-        .calendar-grid {
             .day-header {
-                font-size: 0.95rem; // Larger text
-                padding: 0.4rem 0; // More padding
+                text-align: center;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                background: rgba($main-color, 0.1);
+                border-radius: 4px;
+                font-size: 1rem;
             }
             
             .calendar-day {
+                aspect-ratio: 1/1;
+                min-height: 0;
+                background: #f9f9f9;
+                border-radius: 4px;
+                display: flex;
+                flex-direction: column;
+                padding: 0.3rem;
+                position: relative;
+                border: 1px solid #eee;
+                
+                &.current-month {
+                    background: white;
+                    
+                    &.today {
+                        background: rgba($main-color, 0.1);
+                        border-color: $main-color;
+                    }
+                }
+                
+                &.other-month {
+                    background: #f0f0f0;
+                    color: #999;
+                }
+                
                 .day-number {
-                    font-size: 1rem; // Larger text
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    margin-bottom: 0.2rem;
+                    text-align: right;
+                    padding: 0 0.3rem;
                 }
                 
-                .game-item {
-                    font-size: 0.75rem; // Larger text
-                }
-            }
-        }
-        
-        .astro-info {
-            font-size: 0.7rem; // Larger text
-            .astro-icon {
-                width: 1rem; // Larger icons
-                height: 1rem; // Larger icons
-            }
-        }
-    }
-    
-    @media (max-width: 768px) {
-        padding: 1.2rem; // More padding
-        
-        .calendar-controls {
-            flex-direction: column;
-            gap: 0.8rem;
-            align-items: flex-start;
-            
-            .nav-buttons {
-                width: 100%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6rem; // More space
-                
-                button {
-                    width: 100%;
-                    padding: 0.5rem; // More padding
-                    font-size: 0.95rem; // Larger text
-                }
-            }
-        }
-        
-        .calendar-grid {
-            gap: 3px; // More space
-            
-            .calendar-day {
                 .game-list {
-                    max-height: 70px;
-                }
-                
-                .game-item {
-                    font-size: 0.7rem; // Larger text
-                    padding: 0.2rem 0.3rem; // More padding
-                }
-            }
-        }
-        
-        .calendar-events {
-            .event-item {
-                padding: 0.5rem; // More padding
-                
-                .event-date, .event-desc {
-                    font-size: 0.9rem; // Larger text
-                }
-            }
-        }
-        
-        .astro-info {
-            font-size: 0.65rem; // Larger text
-            .astro-icon {
-                width: 0.95rem; // Larger icons
-                height: 0.95rem; // Larger icons
-            }
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .calendar-grid {
-            .calendar-day {
-                aspect-ratio: 1/1.1;
-                
-                .day-number {
-                    font-size: 0.95rem; // Larger text
-                }
-                
-                .game-item {
-                    font-size: 0.65rem; // Larger text
+                    flex-grow: 1;
+                    overflow-y: auto;
+                    max-height: 80px;
+                    padding: 0.2rem;
+                    
+                    .game-item {
+                        margin-bottom: 0.15rem;
+                        padding: 0.25rem 0.4rem;
+                        border-radius: 3px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-size: 0.85rem;
+
+                        @each $category, $color in $category-colors {
+                            &[data-category="#{$category}"] {
+                                background: rgba($color, 0.1);
+                                border-left: 2px solid $color;
+                            }
+                        }
+                    }
                 }
             }
         }
         
         .calendar-events {
             h3 {
-                font-size: 1.1rem; // Larger text
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 0.8rem;
+                color: #444;
             }
             
             .event-item {
-                .event-date, .event-desc {
-                    font-size: 0.85rem; // Larger text
+                display: flex;
+                align-items: center;
+                padding: 0.6rem;
+                border-radius: 6px;
+                margin-bottom: 0.6rem;
+                background: rgba($main-color, 0.08);
+                border-left: 3px solid $main-color;
+                
+                .event-date {
+                    font-weight: 600;
+                    min-width: 65px;
+                    color: $main-color;
+                    font-size: 1rem;
+                }
+                
+                .event-desc {
+                    font-size: 1rem;
                 }
             }
         }
         
+        // Astronomical information styles
         .astro-info {
-            font-size: 0.6rem; // Larger text
+            margin: 0.2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            font-size: 0.8rem;
+
+            .sun-info,
+            .moon-info {
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+                white-space: nowrap;
+                overflow: hidden;
+            }
             .astro-icon {
-                width: 0.9rem; // Larger icons
-                height: 0.9rem; // Larger icons
+                width: 1.2rem;
+                height: 1.2rem;
+                flex-shrink: 0;
+                
+                path {
+                    stroke-width: 1.5;
+                }
+            }
+            
+            .astro-time {
+                display: inline-block;
+                min-width: 2.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .sun-info {
+                color: #e67700;
+                
+                .astro-icon {
+                    stroke: #e67700;
+                }
+            }
+            
+            .moon-info {
+                color: #4d4d8a;
+                
+                .astro-icon {
+                    stroke: #4d4d8a;
+                }
             }
         }
-    }
-    
-    @media (max-width: 480px) {
-        .calendar-grid {
-            .calendar-day {
-                .game-list {
-                    max-height: 65px;
+        
+        @media (max-width: 1200px) {
+            padding: 1.3rem;
+            
+            .calendar-grid {
+                .calendar-day {
+                    .game-item {
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            
+            .astro-info {
+                font-size: 0.75rem;
+                .astro-icon {
+                    width: 1.1rem;
+                    height: 1.1rem;
+                }
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .calendar-controls {
+                .current-month {
+                    font-size: 1.2rem;
                 }
                 
-                .game-item {
-                    font-size: 0.6rem; // Larger text
+                .nav-buttons button {
+                    padding: 0.4rem 0.8rem;
+                    font-size: 0.9rem;
+                }
+            }
+            
+            .calendar-grid {
+                .day-header {
+                    font-size: 0.95rem;
+                    padding: 0.4rem 0;
+                }
+                
+                .calendar-day {
+                    .day-number {
+                        font-size: 1rem;
+                    }
+                    
+                    .game-item {
+                        font-size: 0.75rem;
+                    }
+                }
+            }
+            
+            .astro-info {
+                font-size: 0.7rem;
+                .astro-icon {
+                    width: 1rem;
+                    height: 1rem;
+                }
+            }
+        }
+        
+        @media (max-width: 768px) {
+            padding: 1.2rem;
+
+            .calendar-controls {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: flex-start;
+                
+                .nav-buttons {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 0.6rem;
+                    
+                    button {
+                        width: 100%;
+                        padding: 0.5rem;
+                        font-size: 0.95rem;
+                    }
+                }
+            }
+            
+            .calendar-grid {
+                gap: 3px;
+
+                .calendar-day {
+                    .game-list {
+                        max-height: 70px;
+                    }
+                    
+                    .game-item {
+                        font-size: 0.7rem;
+                        padding: 0.2rem 0.3rem;
+                    }
+                }
+            }
+            
+            .calendar-events {
+                .event-item {
+                    padding: 0.5rem;
+
+                    .event-date, .event-desc {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+            
+            .astro-info {
+                font-size: 0.65rem;
+                .astro-icon {
+                    width: 0.95rem;
+                    height: 0.95rem;
+                }
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .calendar-grid {
+                .calendar-day {
+                    aspect-ratio: 1/1.1;
+                    .day-number {
+                        font-size: 0.95rem;
+                    }
+
+                    .game-item {
+                        font-size: 0.65rem;
+                    }
+                }
+            }
+            
+            .calendar-events {
+                h3 {
+                    font-size: 1.1rem;
+                }
+
+                .event-item {
+                    .event-date, .event-desc {
+                        font-size: 0.85rem;
+                    }
+                }
+            }
+            
+            .astro-info {
+                font-size: 0.6rem;
+                .astro-icon {
+                    width: 0.9rem;
+                    height: 0.9rem;
+                }
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calendar-grid {
+                .calendar-day {
+                    .game-list {
+                        max-height: 65px;
+                    }
+                    .game-item {
+                        font-size: 0.6rem;
+                    }
                 }
             }
         }
     }
-}
 
-// Prevent horizontal scrolling on whole page
-body {
-    overflow-x: hidden;
-}
+    // Section styling
+    .hs-section {
+        padding: 4rem 8rem;
+        
+        &:nth-child(odd) {
+            background: white;
+        }
+        
+        &:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        @media (max-width: 768px) {
+            padding: 2.5rem 1.5rem;
+        }
+    }
 
-// Section styling
-.hs-section {
-    padding: 4rem 8rem;
-    
-    &:nth-child(odd) {
-        background: white;
+    .hs-heading {
+        font-size: 2.2rem;
+        color: $main-color;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: rgba($main-color, 0.3);
+        }
     }
-    
-    &:nth-child(even) {
-        background: #f9fafb;
-    }
-    
-    @media (max-width: 768px) {
-        padding: 2.5rem 1.5rem; // More padding on mobile
-    }
-}
 
-.hs-heading {
-    font-size: 2.2rem; // Slightly larger
-    color: $main-color;
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-    
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 3px; // Thicker line
-        background-color: rgba($main-color, 0.3);
+    .section-container {
+        max-width: 1300px;
+        margin: 0 auto;
     }
-}
 
-.section-container {
-    max-width: 1300px; // Slightly wider
-    margin: 0 auto;
-}
+    .swiper-button-next, .swiper-button-prev {
+        color: $main-color;
+    }
+
+    .swiper-pagination-bullet {
+        background: $main-color;
+    }
 }
