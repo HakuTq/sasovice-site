@@ -14,6 +14,15 @@ class HuntingAssociationController extends Controller
 
     public function index(Request $request)
     {
+        $news = array_slice(config('news'), 0, 3);
+        $calendarEvents = array_filter(
+            config('calendar_events'),
+            function ($event) {
+            $eventDate = Carbon::parse($event['date']);
+            return $eventDate->isToday() || $eventDate->isFuture();
+            }
+        );
+
         $weekParam = $request->query('week');
         
         try {
@@ -37,7 +46,9 @@ class HuntingAssociationController extends Controller
 
         return view('hs', [
             'days' => $days,
-            'currentWeekStart' => $monday
+            'currentWeekStart' => $monday,
+            'news' => $news,
+            'calendarEvents' => $calendarEvents,
         ]);
     }
     

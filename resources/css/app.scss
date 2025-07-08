@@ -3,13 +3,29 @@
 @tailwind utilities;
 
 @import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
 
-$main-color: #412f20;
-$primary: #e9ab0a;
+// Nature-inspired color palette
+$forest-dark: #1a3d2e;
+$forest-medium: #2d5d47;
+$forest-light: #4a7c59;
+$earth-brown: #8b4513;
+$warm-amber: #d4a574;
+$moss-green: #6b8e23;
+$bark-brown: #654321;
+$leaf-green: #9acd32;
+$natural-cream: #f5f5dc;
+$stone-gray: #696969;
+
+// Main colors
+$main-color: $forest-dark;
+$primary: $warm-amber;
+$accent: $moss-green;
 
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -17,101 +33,127 @@ html {
 }
 
 body {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Source Sans Pro', sans-serif;
     overflow-x: hidden;
+    background: linear-gradient(135deg, $natural-cream 0%, lighten($natural-cream, 5%) 100%);
+    color: $forest-dark;
+    line-height: 1.6;
 }
 
-// Navbar
+// Enhanced typography
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Crimson Text', serif;
+    font-weight: 600;
+    color: $forest-dark;
+    margin-bottom: 1rem;
+}
+
+// Nature-inspired navbar
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    color: #e9ab0a;
-    z-index: 10;
+    z-index: 1000;
     font-weight: 500;
-    background-color: #412f20b9;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    background: rgba($forest-dark, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba($warm-amber, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &.scrolled {
+        padding: 0.5rem 0;
+        background: rgba($forest-dark, 0.98);
+    }
 }
 
 .navbar-left {
     display: flex;
     align-items: center;
-    gap: .5rem;
-    margin-left: 8rem;
-}
+    gap: 1rem;
+    margin-left: 6rem;
 
-.navbar-left a{
-    font-size: 2rem;
-    text-decoration: none;
+    a {
+        font-size: 1.8rem;
+        font-family: 'Crimson Text', serif;
+        text-decoration: none;
+        color: $warm-amber;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: lighten($warm-amber, 10%);
+            transform: scale(1.05);
+        }
+    }
 }
 
 .navbar-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-left: auto;
-    margin-right: 8rem;
+    gap: 0.5rem;
+    margin-right: 6rem;
 }
 
 .navbar-link {
     text-decoration: none;
-    font-size: 1.2rem;
-    margin: .5rem 1rem;
+    font-size: 1.1rem;
+    color: $natural-cream;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    &:not(.active) {
-        &:hover::after {
-            width: 100%;
-            background: white;
-        }
+    &:hover {
+        background: rgba($warm-amber, 0.1);
+        color: $warm-amber;
+        transform: translateY(-2px);
     }
 
     &.active {
-        cursor: default;
-        pointer-events: none;
-        
-        &::after {
-            width: 100% !important;
-            background: $main-color !important;
-        }
+        background: $warm-amber;
+        color: $forest-dark;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba($warm-amber, 0.3);
     }
 }
 
-.navbar-link::after {
-    transition: .5s;
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background: white;
-    left: 50%;
-    bottom: -5%;
-    transform: translate(-50%, -50%);
-}
-  
-.navbar-link:hover::after {
-    width: 100%;
-}
-
 .navbar-logo {
-    width: 50px;
+    width: 45px;
     height: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-// Welcome img
+// Enhanced welcome section with nature overlay
 .welcome-img-wrapper {
     position: relative;
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     max-height: 900px;
-    min-height: 320px;
+    min-height: 400px;
     overflow: hidden;
     margin-top: 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba($forest-dark, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba($moss-green, 0.3) 0%, transparent 50%),
+            linear-gradient(135deg, rgba($forest-dark, 0.7) 0%, rgba($forest-medium, 0.5) 50%, transparent 100%);
+        z-index: 1;
+    }
 }
 
 .welcome-img {
@@ -120,6 +162,7 @@ body {
     object-fit: cover;
     object-position: center center;
     display: block;
+    filter: sepia(20%) saturate(1.2) contrast(1.1);
 }
 
 .welcome-img-overlay {
@@ -128,1047 +171,608 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 30%),
-        linear-gradient(to top, $primary, transparent 5%);
-    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgba($forest-dark, 0.8) 0%,
+        rgba($forest-medium, 0.6) 30%,
+        rgba($forest-light, 0.4) 60%,
+        transparent 100%
+    );
+    z-index: 2;
 }
 
-// News
-.news-section {
-    background: white;
-    padding: 4rem 8rem;
-    position: relative;
-  
-    .news-heading {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
-      color: #333;
-    }
-  
-    .news-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-  
-    .news-article {
-      padding: 1rem 3rem 1rem 0;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      position: relative;
-      overflow: hidden;
-  
-      &:hover {
-        transform: translateX(5px);
-  
-        .news-title::after {
-          width: 100%;
-        }
-  
-        .article-icon {
-          opacity: 1;
-          transform: translateY(-50%) translateX(0);
-          color: $main-color;
-        }
-      }
-  
-      .article-icon {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%) translateX(20px);
+.welcome-title {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $natural-cream;
+    text-align: center;
+    font-size: 3.5rem;
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    z-index: 3;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+    letter-spacing: 2px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.welcome-subtitle {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $warm-amber;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 300;
+    z-index: 3;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 1px;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+    from {
         opacity: 0;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        width: 24px;
-        height: 24px;
-        color: #ddd;
-      }
-  
-      .news-meta {
-        display: flex;
-        align-items: baseline;
-        gap: 1rem;
-        margin-bottom: 0.5rem;
-  
-        .news-category {
-          font-weight: 700;
-          text-transform: uppercase;
-          font-size: 0.875rem;
-          letter-spacing: 0.5px;
-          color: $main-color;
-        }
-  
-        .news-date {
-          font-size: 0.875rem;
-          color: #666;
-        }
-      }
-  
-      .news-title {
-        font-size: 1.125rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: #222;
-        position: relative;
-        display: inline-block;
-        padding-right: 1rem;
-  
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background-color: currentColor;
-          transition: width 0.3s ease;
-        }
-      }
-  
-      .news-excerpt {
-        font-size: 1rem;
-        line-height: 1.5;
-        color: #666;
-        margin: 0;
-      }
+        transform: translate(-50%, -30%);
     }
-  
-    .news-divider {
-      height: 1px;
-      background: #e0e0e0;
-      margin: 1rem 0;
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
     }
-  
-    .view-all {
-      display: inline-block;
-      margin-top: 2rem;
-      font-weight: 500;
-      color: #333;
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 3px;
-  
-      &::after {
+}
+
+// Nature-inspired section styling
+.hs-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, $natural-cream 0%, lighten($natural-cream, 5%) 100%);
+}
+
+.hs-section {
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $forest-dark, $moss-green, $warm-amber, $forest-light);
+    }
+
+    &:nth-child(odd) {
+        background: linear-gradient(135deg, 
+            rgba($moss-green, 0.05) 0%, 
+            rgba($forest-light, 0.08) 50%, 
+            rgba($warm-amber, 0.05) 100%
+        );
+    }
+    
+    &:nth-child(even) {
+        background: linear-gradient(135deg, 
+            rgba($natural-cream, 0.8) 0%, 
+            rgba($warm-amber, 0.1) 50%, 
+            rgba($forest-light, 0.05) 100%
+        );
+    }
+}
+
+.section-container {
+    margin-left: 6rem;
+    margin-right: 6rem;
+    max-width: calc(100% - 12rem);
+    padding: 4rem 0;
+    
+    @media (max-width: 1200px) {
+        margin-left: 3rem;
+        margin-right: 3rem;
+        max-width: calc(100% - 6rem);
+    }
+    
+    @media (max-width: 768px) {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        max-width: calc(100% - 3rem);
+        padding: 2.5rem 0;
+    }
+}
+
+.hs-heading {
+    font-family: 'Crimson Text', serif;
+    font-size: 2.5rem;
+    color: $forest-dark;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+    text-align: center;
+    
+    &::after {
         content: '';
         position: absolute;
         bottom: 0;
-        left: 0;
-        width: 0;
-        height: 1.5px;
-        background-color: #333;
-        transition: width 0.3s ease;
-      }
-  
-      &:hover::after {
-        width: 100%;
-      }
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, $forest-dark, $warm-amber, $moss-green);
+        border-radius: 2px;
+    }
+
+    &::before {
+        content: '🌲';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        opacity: 0.3;
     }
 }
 
-// Footer
-.site-footer {
-    background-color: $main-color;
-    color: white;
-    position: relative;
-
-    .footer-map {
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        padding-bottom: 20px;
-    }
-
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 3rem;
-        padding: 3rem 8rem 2rem;
-        border-bottom: 1px solid rgba(white, 0.1);
-    }
-
-    .footer-section {
-        margin-bottom: 2rem;
-
-        .footer-heading {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 50px;
-                height: 2px;
-                background-color: rgba(white, 0.3);
-            }
-        }
-
-        .footer-list {
-            list-style: none;
-            padding: 0;
-
-            li {
-                margin-bottom: 0.75rem;
-
-                a {
-                    color: rgba(white, 0.8);
-                    text-decoration: none;
-                    transition: all 0.3s ease;
-                    position: relative;
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -2px;
-                        left: 0;
-                        width: 0;
-                        height: 1px;
-                        background-color: white;
-                        transition: width 0.3s ease;
-                    }
-
-                    &:hover {
-                        color: white;
-
-                        &::after {
-                            width: 100%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .social-links {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 1rem;
-
-        .social-link {
-            color: rgba(white, 0.8);
-            transition: all 0.3s ease;
-
-            .social-icon {
-                width: 24px;
-                height: 24px;
-            }
-
-            &:hover {
-                color: white;
-                transform: translateY(-3px);
-            }
-        }
-    }
-
-    .footer-bottom {
-        text-align: center;
-        padding-top: 2rem;
-        margin-top: 2rem;
-        font-size: 0.9rem;
-        color: rgba(white, 0.7);
-    }
-
-    @media (max-width: 768px) {
-        .footer-content {
-            padding: 2rem 1.5rem;
-            grid-template-columns: 1fr;
-        }
-
-        .footer-map {
-            height: 200px;
-        }
-    }
-}
-
-// About
-.village-info {
-    padding: 4rem 8rem;
-    background: #f9fafb;
-
-    .village-header {
-        text-align: center;
-        margin-bottom: 3rem;
-
-        .village-title {
-            font-size: 2.5rem;
-            color: $main-color;
-            margin-bottom: 0.5rem;
-        }
-
-        .village-subtitle {
-            font-size: 1.25rem;
-            color: #666;
-        }
-    }
-
-    .village-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-bottom: 4rem;
-
-        .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            transition: transform 0.3s ease;
-
-            &:hover {
-                transform: translateY(-5px);
-            }
-
-            .stat-icon {
-                width: 48px;
-                height: 48px;
-                color: $main-color;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-                color: #222;
-                margin-bottom: 0.25rem;
-            }
-
-            .stat-label {
-                color: #666;
-                font-size: 0.9rem;
-            }
-        }
-    }
-
-    .village-history {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        margin-bottom: 4rem;
-
-        .history-content {
-            .history-title {
-                font-size: 1.75rem;
-                color: $main-color;
-                margin-bottom: 1.5rem;
-            }
-
-            .history-text {
-                line-height: 1.6;
-                color: #444;
-                margin-bottom: 2rem;
-            }
-
-            .history-highlights {
-                display: flex;
-                gap: 2rem;
-
-                .highlight-item {
-                    text-align: center;
-                    padding: 1rem;
-                    background: rgba($main-color, 0.1);
-                    border-radius: 8px;
-
-                    .highlight-year {
-                        display: block;
-                        font-size: 1.5rem;
-                        font-weight: 700;
-                        color: $main-color;
-                        margin-bottom: 0.5rem;
-                    }
-
-                    .highlight-text {
-                        font-size: 0.9rem;
-                        color: #666;
-                    }
-                }
-            }
-        }
-
-        .history-image {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-    }
-
-    @media (max-width: 768px) {
-        padding: 2rem 1.5rem;
-
-        .village-history {
-            grid-template-columns: 1fr;
-
-            .history-highlights {
-                flex-direction: column;
-            }
-        }
-
-        .village-stats {
-            grid-template-columns: 1fr;
-        }
-    }
-}
-
-// HS
-.hs-wrapper {
-    min-height: 100vh;
-
-    .hs-map {
-        width: 100%;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-top: 2rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        
-        .map-iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            display: block;
-        }
-        
-        @media (max-width: 768px) {
-            .map-iframe {
-                height: 300px;
-            }
-        }
-    }
-
-    .astro-info {
-        margin: 0.1rem 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.1rem;
-        font-size: 0.6rem;
-        
-        .sun-info,
-        .moon-info {
-            display: flex;
-            align-items: center;
-            gap: 0.2rem;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        
-        .astro-icon {
-            width: 0.9rem;
-            height: 0.9rem;
-            flex-shrink: 0;
-            
-            path {
-                stroke-width: 1.5;
-            }
-        }
-        
-        .astro-time {
-            display: inline-block;
-            min-width: 1.8rem;
-        }
-        
-        .sun-info {
-            color: #e67700; // Orange for sun
-            
-            .astro-icon {
-                stroke: #e67700;
-            }
-        }
-        
-        .moon-info {
-            color: #4d4d8a; // Purple for moon
-            
-            .astro-icon {
-                stroke: #4d4d8a;
-            }
-        }
-    }
-
-    @media (max-width: 1200px) {
-        .astro-info {
-            font-size: 0.55rem;
-            
-            .astro-icon {
-                width: 0.8rem;
-                height: 0.8rem;
-            }
-            
-            .astro-time {
-                min-width: 1.6rem;
-            }
-        }
-    }
+// Enhanced info section
+.hs-info {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(white, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($forest-light, 0.2);
 
     @media (max-width: 992px) {
-        .astro-info {
-            font-size: 0.5rem;
-            
-            .astro-icon {
-                width: 0.7rem;
-                height: 0.7rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hs-description {
+        flex: 1;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: $forest-dark;
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba($forest-light, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid $moss-green;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: rgba($forest-light, 0.1);
+                transform: translateX(5px);
             }
+
+            .info-icon {
+                width: 28px;
+                height: 28px;
+                margin-right: 1rem;
+                color: $moss-green;
+                flex-shrink: 0;
+            }
+        }
+    }
+
+    .hs-image-placeholder {
+        flex: 1;
+        height: 400px;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba($forest-dark, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .hs-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: sepia(10%) saturate(1.1);
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+// Enhanced news section
+.hs-news {
+    .news-item {
+        background: rgba(white, 0.7);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-left: 6px solid $moss-green;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba($warm-amber, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left-color: $warm-amber;
+        }
+        
+        .news-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: $forest-dark;
+        }
+        
+        .news-date {
+            color: $stone-gray;
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        p {
+            color: darken($forest-dark, 5%);
+            line-height: 1.7;
+        }
+    }
+}
+
+.hs-news-more {
+    margin-top: 2rem;
+    text-align: center;
+
+    .hs-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, $forest-dark, $forest-medium);
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba($forest-dark, 0.3);
+
+        &:hover {
+            background: linear-gradient(135deg, $forest-medium, $forest-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba($forest-dark, 0.4);
+        }
+
+        &::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        &:hover::after {
+            transform: translateX(5px);
+        }
+    }
+}
+
+// Enhanced calendar with nature theme
+.hs-calendar {
+    width: 100%;
+    background: rgba(white, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($forest-light, 0.2);
+    
+    .calendar-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, $forest-dark, $forest-medium);
+        border-radius: 15px;
+        color: white;
+        
+        .current-week {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 0.5rem;
             
-            .astro-time {
-                min-width: 1.4rem;
+            button {
+                background: rgba(white, 0.2);
+                color: white;
+                border: none;
+                padding: 0.7rem 1.2rem;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(5px);
+                
+                &:hover {
+                    background: rgba(white, 0.3);
+                    transform: translateY(-2px);
+                }
             }
         }
     }
     
-    .section-container {
-        margin-left: 8rem;
-        margin-right: 8rem;
-        max-width: calc(100% - 16rem);
-        padding: 4rem 0;
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 2rem;
         
-        @media (max-width: 1200px) {
-            margin-left: 4rem;
-            margin-right: 4rem;
-            max-width: calc(100% - 8rem);
-        }
-        
-        @media (max-width: 768px) {
-            margin-left: 2rem;
-            margin-right: 2rem;
-            max-width: calc(100% - 4rem);
-            padding: 2rem 0;
-        }
-    }
-
-
-    .hs-section {
-
-        &:nth-child(odd) {
-            background: #ecbb40;
+        .day-header {
+            text-align: center;
+            font-weight: 600;
+            padding: 1rem 0;
+            background: linear-gradient(135deg, $moss-green, $leaf-green);
+            color: white;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba($moss-green, 0.3);
         }
         
-        &:nth-child(even) {
-            background: #e9ab0a !important;
-        }
-    }
-
-
-    .hs-heading {
-        font-size: 2rem;
-        color: black !important;
-        margin-bottom: 1.5rem;
-        position: relative;
-        padding-bottom: 0.5rem;
-        
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: rgba($main-color, 0.3);
-        }
-    }
-
-
-    .hs-info {
-        display: flex;
-        gap: 3rem;
-        align-items: center;
-        margin-top: 2rem;
-
-        @media (max-width: 992px) {
-            flex-direction: column;
-        }
-
-        .hs-description {
-            flex: 1;
-            font-size: 1.1rem;
-            line-height: 1.7;
-
-            .info-item {
-                display: flex;
-                align-items: flex-start;
-                margin: 1.2rem 0;
-
-                .info-icon {
-                    width: 24px;
-                    height: 24px;
-                    margin-right: 1rem;
-                    color: $main-color;
-                    flex-shrink: 0;
+        .calendar-day {
+            min-height: 120px;
+            background: rgba($natural-cream, 0.8);
+            border-radius: 12px;
+            padding: 0.5rem;
+            border: 2px solid rgba($forest-light, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            
+            &:hover {
+                background: rgba(white, 0.9);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            &.current-day {
+                background: rgba(white, 0.95);
+                border-color: $moss-green;
+                
+                &.today {
+                    background: linear-gradient(135deg, rgba($warm-amber, 0.2), rgba($moss-green, 0.1));
+                    border-color: $warm-amber;
+                    box-shadow: 0 0 20px rgba($warm-amber, 0.3);
                 }
             }
-        }
-
-        .hs-image-placeholder {
-            flex: 1;
-            height: 350px;
-            background: #f0f0f0;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-        }
-    }
-
-
-    .hs-gallery {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.5rem;
-        margin-top: 2rem;
-
-        @media (max-width: 992px) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .gallery-item {
-            aspect-ratio: 1/1;
-            background: #f0f0f0;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-        }
-    }
-
-    .hs-news {
-        .news-item {
-            border-left: 4px solid $main-color;
-            padding: 1rem 0 1rem 1.5rem;
-            margin: 1.5rem 0;
             
-            .news-title {
-                font-size: 1.4rem;
+            .day-number {
+                font-family: 'Crimson Text', serif;
                 font-weight: 600;
+                font-size: 1.1rem;
+                text-align: right;
+                color: $forest-dark;
                 margin-bottom: 0.5rem;
             }
             
-            .news-date {
-                color: #666;
-                font-style: italic;
-                margin-bottom: 0.8rem;
-                display: block;
-            }
-        }
-    }
-
-
-    .hs-map {
-        height: 500px;
-        background: #f0f0f0;
-        border-radius: 8px;
-        margin-top: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    // Hunting Calendar Styles
-    $category-colors: (
-        'Spárkatá zvěř': #4c7c9c,
-        'Pernatá zvěř': #8e6c88,
-        'Šelmy a ostatní': #c46b3e
-    );
-
-    .hs-calendar {
-        width: 100%;
-        overflow: hidden;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        padding: 1.5rem;
-        
-        .calendar-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-            
-            .nav-buttons {
-                display: flex;
-                gap: 0.5rem;
+            .game-list {
+                flex-grow: 1;
+                overflow-y: auto;
+                max-height: 60px;
                 
-                button {
-                    background: $main-color;
+                .game-item {
+                    margin-bottom: 0.3rem;
+                    padding: 0.3rem 0.5rem;
+                    border-radius: 8px;
+                    font-size: 0.8rem;
+                    font-weight: 500;
                     color: white;
-                    border: none;
-                    padding: 0.5rem 1rem;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    transition: background 0.3s;
-                    font-size: 1rem;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                    &[data-category="Spárkatá zvěř"] {
+                        background: linear-gradient(135deg, $earth-brown, darken($earth-brown, 10%));
+                    }
                     
-                    &:hover {
-                        background: darken($main-color, 10%);
+                    &[data-category="Pernatá zvěř"] {
+                        background: linear-gradient(135deg, $moss-green, darken($moss-green, 10%));
+                    }
+                    
+                    &[data-category="Šelmy a ostatní"] {
+                        background: linear-gradient(135deg, $forest-medium, darken($forest-medium, 10%));
                     }
                 }
             }
         }
+    }
+    
+    .calendar-events {
+        background: rgba($forest-light, 0.05);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border: 1px solid rgba($forest-light, 0.1);
         
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, minmax(0, 1fr));
-            gap: 5px;
+        h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
             margin-bottom: 1rem;
+            color: $forest-dark;
+            text-align: center;
+        }
+        
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            background: rgba(white, 0.8);
+            border-left: 4px solid $warm-amber;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
             
-            .day-header {
-                text-align: center;
+            &:hover {
+                background: rgba(white, 0.95);
+                transform: translateX(5px);
+            }
+            
+            .event-date {
+                font-family: 'Crimson Text', serif;
                 font-weight: 600;
-                padding: 0.5rem 0;
-                background: rgba($main-color, 0.1);
-                border-radius: 4px;
+                min-width: 80px;
+                color: $forest-dark;
                 font-size: 1rem;
             }
             
-            .calendar-day {
-                aspect-ratio: 1/1;
-                min-height: 0;
-                background: #f9f9f9;
-                border-radius: 4px;
-                display: flex;
-                flex-direction: column;
-                padding: 0.3rem;
-                position: relative;
-                border: 1px solid #eee;
-                
-                &.current-day {
-                    background: white;
-                    
-                    &.today {
-                        background: rgba($main-color, 0.1);
-                        border-color: $main-color;
-                    }
-                }
-                
-                &.other-month {
-                    background: #f0f0f0;
-                    color: #999;
-                }
-                
-                .day-number {
-                    font-weight: 600;
-                    font-size: 1.1rem;
-                    margin-bottom: 0.2rem;
-                    text-align: right;
-                    padding: 0 0.3rem;
-                }
-                
-                .game-list {
-                    flex-grow: 1;
-                    overflow-y: auto;
-                    max-height: 80px;
-                    padding: 0.2rem;
-                    
-                    .game-item {
-                        margin-bottom: 0.15rem;
-                        padding: 0.25rem 0.4rem;
-                        border-radius: 3px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        font-size: 0.85rem;
+            .event-desc {
+                font-size: 1rem;
+                padding-left: 1rem;
+                color: darken($forest-dark, 5%);
+            }
+        }
+    }
+}
 
-                        @each $category, $color in $category-colors {
-                            &[data-category="#{$category}"] {
-                                background: rgba($color, 0.1);
-                                border-left: 2px solid $color;
-                            }
+// Enhanced astronomical info
+.astro-info {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(white, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    
+    .sun-info,
+    .moon-info {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: 0.2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .astro-icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
+    
+    .astro-time {
+        min-width: 2rem;
+        text-align: center;
+        background: rgba(white, 0.5);
+        border-radius: 4px;
+        padding: 0.1rem 0.3rem;
+    }
+    
+    .sun-info {
+        color: #ff6b35;
+        .astro-icon { stroke: #ff6b35; }
+    }
+    
+    .moon-info {
+        color: #4a5568;
+        .astro-icon { stroke: #4a5568; }
+    }
+}
+
+// Enhanced footer with nature theme
+.site-footer {
+    background: linear-gradient(135deg, $forest-dark 0%, $forest-medium 50%, $forest-light 100%);
+    color: $natural-cream;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $warm-amber, $moss-green, $leaf-green);
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+        padding: 4rem 6rem 2rem;
+        
+        .footer-section {
+            .footer-heading {
+                font-family: 'Crimson Text', serif;
+                font-size: 1.3rem;
+                color: $warm-amber;
+                margin-bottom: 1.5rem;
+                position: relative;
+                padding-bottom: 0.5rem;
+                
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 60px;
+                    height: 2px;
+                    background: $warm-amber;
+                }
+            }
+            
+            .footer-list {
+                list-style: none;
+                
+                li {
+                    margin-bottom: 0.8rem;
+                    
+                    a {
+                        color: rgba($natural-cream, 0.9);
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        
+                        &:hover {
+                            color: $warm-amber;
+                            padding-left: 5px;
                         }
                     }
                 }
             }
         }
-        
-        .calendar-events {
-            h3 {
-                font-size: 1.2rem;
-                font-weight: 600;
-                margin-bottom: 0.8rem;
-                color: #444;
-            }
-            
-            .event-item {
-                display: flex;
-                align-items: center;
-                padding: 0.6rem;
-                border-radius: 6px;
-                margin-bottom: 0.6rem;
-                background: rgba($main-color, 0.08);
-                border-left: 3px solid $main-color;
-                
-                .event-date {
-                    font-weight: 600;
-                    min-width: 65px;
-                    color: $main-color;
-                    font-size: 1rem;
-                }
-                
-                .event-desc {
-                    font-size: 1rem;
-                }
-            }
-        }
-        
-        // Astronomical information styles
-        .astro-info {
-            margin: 0.2rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-            font-size: 0.8rem;
-
-            .sun-info,
-            .moon-info {
-                display: flex;
-                align-items: center;
-                gap: 0.3rem;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-            .astro-icon {
-                width: 1.2rem;
-                height: 1.2rem;
-                flex-shrink: 0;
-                
-                path {
-                    stroke-width: 1.5;
-                }
-            }
-            
-            .astro-time {
-                display: inline-block;
-                min-width: 2.5rem;
-                font-size: 0.8rem;
-            }
-            
-            .sun-info {
-                color: #e67700;
-                
-                .astro-icon {
-                    stroke: #e67700;
-                }
-            }
-            
-            .moon-info {
-                color: #4d4d8a;
-                
-                .astro-icon {
-                    stroke: #4d4d8a;
-                }
-            }
-        }
-        
-        @media (max-width: 1200px) {
-            padding: 1.3rem;
-            
-            .calendar-grid {
-                .calendar-day {
-                    .game-item {
-                        font-size: 0.8rem;
-                    }
-                }
-            }
-            
-            .astro-info {
-                font-size: 0.75rem;
-                .astro-icon {
-                    width: 1.1rem;
-                    height: 1.1rem;
-                }
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .calendar-controls {
-                .current-month {
-                    font-size: 1.2rem;
-                }
-                
-                .nav-buttons button {
-                    padding: 0.4rem 0.8rem;
-                    font-size: 0.9rem;
-                }
-            }
-            
-            .calendar-grid {
-                .day-header {
-                    font-size: 0.95rem;
-                    padding: 0.4rem 0;
-                }
-                
-                .calendar-day {
-                    .day-number {
-                        font-size: 1rem;
-                    }
-                    
-                    .game-item {
-                        font-size: 0.75rem;
-                    }
-                }
-            }
-            
-            .astro-info {
-                font-size: 0.7rem;
-                .astro-icon {
-                    width: 1rem;
-                    height: 1rem;
-                }
-            }
-        }
-        
-        @media (max-width: 768px) {
-            padding: 1.2rem;
-
-            .calendar-controls {
-                flex-direction: column;
-                gap: 0.8rem;
-                align-items: flex-start;
-                
-                .nav-buttons {
-                    width: 100%;
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 0.6rem;
-                    
-                    button {
-                        width: 100%;
-                        padding: 0.5rem;
-                        font-size: 0.95rem;
-                    }
-                }
-            }
-            
-            .calendar-grid {
-                gap: 3px;
-
-                .calendar-day {
-                    .game-list {
-                        max-height: 70px;
-                    }
-                    
-                    .game-item {
-                        font-size: 0.7rem;
-                        padding: 0.2rem 0.3rem;
-                    }
-                }
-            }
-            
-            .calendar-events {
-                .event-item {
-                    padding: 0.5rem;
-
-                    .event-date, .event-desc {
-                        font-size: 0.9rem;
-                    }
-                }
-            }
-            
-            .astro-info {
-                font-size: 0.65rem;
-                .astro-icon {
-                    width: 0.95rem;
-                    height: 0.95rem;
-                }
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .calendar-grid {
-                .calendar-day {
-                    aspect-ratio: 1/1.1;
-                    .day-number {
-                        font-size: 0.95rem;
-                    }
-
-                    .game-item {
-                        font-size: 0.65rem;
-                    }
-                }
-            }
-            
-            .calendar-events {
-                h3 {
-                    font-size: 1.1rem;
-                }
-
-                .event-item {
-                    .event-date, .event-desc {
-                        font-size: 0.85rem;
-                    }
-                }
-            }
-            
-            .astro-info {
-                font-size: 0.6rem;
-                .astro-icon {
-                    width: 0.9rem;
-                    height: 0.9rem;
-                }
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .calendar-grid {
-                .calendar-day {
-                    .game-list {
-                        max-height: 65px;
-                    }
-                    .game-item {
-                        font-size: 0.6rem;
-                    }
-                }
-            }
-        }
     }
-
-    // Section styling
-    .hs-section {
-        padding: 4rem 8rem;
-        
-        @media (max-width: 768px) {
-            padding: 2.5rem 1.5rem;
-        }
-    }
-
-    .hs-heading {
-        font-size: 2.2rem;
-        color: $main-color;
-        margin-bottom: 1.5rem;
-        position: relative;
-        padding-bottom: 0.5rem;
-        
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: rgba($main-color, 0.3);
-        }
-    }
-
-    .section-container {
-        max-width: 1300px;
-        margin: 0 auto;
-    }
-
-    .swiper-button-next, .swiper-button-prev {
-        color: $main-color;
-    }
-
-    .swiper-pagination-bullet {
-        background: $main-color;
+    
+    .footer-bottom {
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid rgba($warm-amber, 0.3);
+        background: rgba($forest-dark, 0.3);
+        color: rgba($natural-cream, 0.8);
     }
 }
 
@@ -1229,6 +833,7 @@ body {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
+            color: white;
         }
         
         .contact-position {
@@ -1317,4 +922,368 @@ body {
 
 .pagination {
     padding-top: 10px;
+}
+
+.news-section {
+    padding-top: 4rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, $natural-cream 0%, lighten($natural-cream, 5%) 100%);
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $forest-dark, $moss-green, $warm-amber, $forest-light);
+    }
+
+    .news-heading {
+        font-family: 'Crimson Text', serif;
+        font-size: 2.5rem;
+        color: $forest-dark;
+        margin-bottom: 3rem;
+        position: relative;
+        padding-bottom: 1rem;
+        text-align: center;
+        margin-left: 6rem;
+        margin-right: 6rem;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, $forest-dark, $warm-amber, $moss-green);
+            border-radius: 2px;
+        }
+
+        &::before {
+            content: '📰';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+    }
+
+    .news-container {
+        margin-left: 6rem;
+        margin-right: 6rem;
+        max-width: calc(100% - 12rem);
+        
+        @media (max-width: 1200px) {
+            margin-left: 3rem;
+            margin-right: 3rem;
+            max-width: calc(100% - 6rem);
+        }
+        
+        @media (max-width: 768px) {
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+            max-width: calc(100% - 3rem);
+        }
+    }
+
+    .news-article {
+        display: block;
+        background: rgba(white, 0.7);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border-left: 6px solid $moss-green;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba($warm-amber, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left-color: $warm-amber;
+            
+            .news-title {
+                color: $warm-amber;
+            }
+        }
+
+        .news-meta {
+            margin-bottom: 1rem;
+            
+            .news-date {
+                color: $stone-gray;
+                font-style: italic;
+                font-size: 0.95rem;
+                font-weight: 500;
+                background: rgba($forest-light, 0.1);
+                padding: 0.3rem 0.8rem;
+                border-radius: 12px;
+                display: inline-block;
+                border: 1px solid rgba($forest-light, 0.2);
+            }
+        }
+        
+        .news-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: $forest-dark;
+            transition: color 0.3s ease;
+            line-height: 1.3;
+        }
+
+        .news-excerpt {
+            color: darken($forest-dark, 5%);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    }
+
+    // No articles state
+    .no-articles {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(white, 0.6);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba($forest-light, 0.2);
+        margin: 2rem 0;
+        
+        svg {
+            width: 3rem;
+            height: 3rem;
+            color: rgba($stone-gray, 0.6);
+            margin-bottom: 1rem;
+        }
+        
+        .no-articles-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            color: $stone-gray;
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+
+    // Pagination styling
+    .pagination {
+        padding: 2rem 0;
+        margin-left: 6rem;
+        margin-right: 6rem;
+        display: flex;
+        justify-content: center;
+        
+        @media (max-width: 1200px) {
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+        
+        // Laravel pagination links styling
+        nav {
+            .flex {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            a, span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 40px;
+                height: 40px;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-size: 0.95rem;
+                
+                &:not([aria-current]):not(.disabled) {
+                    background: rgba(white, 0.8);
+                    color: $forest-dark;
+                    border: 1px solid rgba($forest-light, 0.3);
+                    
+                    &:hover {
+                        background: rgba($moss-green, 0.1);
+                        color: $moss-green;
+                        border-color: $moss-green;
+                        transform: translateY(-1px);
+                    }
+                }
+                
+                &[aria-current="page"] {
+                    background: linear-gradient(135deg, $forest-dark, $forest-medium);
+                    color: white;
+                    border: 1px solid $forest-dark;
+                    box-shadow: 0 4px 15px rgba($forest-dark, 0.3);
+                }
+                
+                &.disabled {
+                    background: rgba($stone-gray, 0.1);
+                    color: rgba($stone-gray, 0.5);
+                    cursor: not-allowed;
+                    border: 1px solid rgba($stone-gray, 0.2);
+                }
+            }
+            
+            .hidden {
+                display: none;
+            }
+        }
+    }
+}
+
+// Enhanced responsive design
+@media (max-width: 768px) {
+    .news-section {
+        .news-heading {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .news-article {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            
+            .news-title {
+                font-size: 1.5rem;
+            }
+            
+            .news-excerpt {
+                font-size: 1rem;
+            }
+        }
+        
+        .no-articles {
+            padding: 3rem 1.5rem;
+            
+            svg {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            
+            .no-articles-text {
+                font-size: 1.1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .news-section {
+        .news-heading {
+            font-size: 1.8rem;
+        }
+        
+        .news-article {
+            padding: 1.2rem;
+            
+            .news-title {
+                font-size: 1.3rem;
+            }
+            
+            .news-excerpt {
+                font-size: 0.95rem;
+            }
+        }
+        
+        .pagination {
+            nav {
+                a, span {
+                    min-width: 35px;
+                    height: 35px;
+                    padding: 0.3rem 0.8rem;
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+    .navbar-left { margin-left: 3rem; }
+    .navbar-right { margin-right: 3rem; }
+    
+    .welcome-title { font-size: 3rem; }
+    .welcome-subtitle { font-size: 1.2rem; }
+    
+    .hs-info { gap: 2rem; }
+    .hs-calendar { padding: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+    .navbar-left { margin-left: 1rem; }
+    .navbar-right { margin-right: 1rem; }
+    
+    .welcome-title { font-size: 2.5rem; }
+    .welcome-subtitle { font-size: 1rem; }
+    
+    .hs-info {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    .hs-calendar {
+        padding: 1rem;
+        
+        .calendar-controls {
+            flex-direction: column;
+            gap: 1rem;
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    }
+    
+    .site-footer .footer-content {
+        padding: 2rem 1.5rem;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title { font-size: 2rem; }
+    .hs-heading { font-size: 2rem; }
+    
+    .calendar-grid {
+        gap: 4px;
+        
+        .calendar-day {
+            min-height: 100px;
+            padding: 0.3rem;
+        }
+    }
 }

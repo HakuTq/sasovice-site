@@ -5,11 +5,15 @@
     <!-- Image -->
     <div class="welcome-img-wrapper">
         <img class="welcome-img" 
-            src="{{ asset('storage/images/main-photo.jpg') }}" 
+            src="{{ asset('storage/images/forest.jpg') }}" 
             alt="Welcome Image"
             loading="lazy"
             decoding="async">
         <div class="welcome-img-overlay"></div>
+        <div>
+            <h1 class="welcome-title">Vítejte v honitbě Šašovice</h1>
+            <p class="welcome-subtitle">Spolek myslivců a přátel přírody</p>
+        </div>
     </div>
 
     <!-- Info Section -->
@@ -41,37 +45,13 @@
                 </div>
                 
                 <div class="hs-image-placeholder">
-                    Logo nebo fotka honitby
+                    <img src="{{ asset('storage/images/main-photo.jpg') }}" 
+                         alt="Hunting Image" 
+                         class="hs-image"
+                         loading="lazy"
+                         decoding="async">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="hs-section">
-        <div class="section-container">
-            <h2 class="hs-heading">Galerie</h2>
-            
-            <!-- Swiper container -->
-            <div class="swiper hs-gallery">
-                <div class="swiper-wrapper">
-                    @for ($i = 0; $i < 8; $i++)
-                    <div class="swiper-slide">
-                        <div class="gallery-item">
-                            Fotka {{ $i+1 }}
-                        </div>
-                    </div>
-                    @endfor
-                </div>
-                
-                <!-- Navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
-            </div>
-            <a class="view-all" href="#">Zobrazit všechny fotografie</a>
         </div>
     </section>
 
@@ -80,17 +60,16 @@
         <div class="section-container">
             <h2 class="hs-heading">Aktuality</h2>
             <div class="hs-news">
-                <div class="news-item">
-                    <h3 class="news-title">Podzimní lov</h3>
-                    <span class="news-date">15. října 2023</span>
-                    <p>Připravujeme podzimní lov srnčí zvěře. Sraz v 6:00 u hájenky.</p>
-                </div>
-                
-                <div class="news-item">
-                    <h3 class="news-title">Krmení zvěře</h3>
-                    <span class="news-date">5. září 2023</span>
-                    <p>V sobotu 10.9. proběhne příprava krmelců na zimní období.</p>
-                </div>
+                @foreach ($news as $item)
+                    <div class="news-item">
+                        <h3 class="news-title">{{ $item['title'] }}</h3>
+                        <span class="news-date">{{ $item['date'] }}</span>
+                        <p>{{ $item['text'] }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="hs-news-more">
+                <a href="{{ route('news') }}" class="hs-link">Zobrazit všechny aktuality</a>
             </div>
         </div>
     </section>
@@ -155,19 +134,16 @@
             
             <div class="calendar-events">
                 <h3>Nadcházející akce</h3>
+                @foreach ($calendarEvents as $event)
                 <div class="event-item">
-                    <div class="event-date">15. 10.</div>
-                    <div class="event-desc">Zahájení lovu srnčí zvěře</div>
+                    <div class="event-date">{{ $event['date'] }}</div>
+                    <div class="event-desc">{{ $event['title'] }}</div>
                 </div>
-                <div class="event-item">
-                    <div class="event-date">28. 10.</div>
-                    <div class="event-desc">Kolektivní naháňka</div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const iframe = document.getElementById('map-iframe');
@@ -192,34 +168,6 @@
         
         // Initial resize
         resizeIframe();
-        
-        // Resize on window change
-        window.addEventListener('resize', resizeIframe);
-
-                const gallerySwiper = new Swiper('.hs-gallery', {
-                loop: true,
-                slidesPerView: 1,
-                spaceBetween: 20,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                    },
-                    1280: {
-                        slidesPerView: 4,
-                    }
-                }
-            });
     });
 
     document.getElementById('prev-week').addEventListener('click', function() {

@@ -11,15 +11,6 @@
             </ul>
         </div>
 
-        <div class="footer-section">
-            <h3 class="footer-heading">Rychlé odkazy</h3>
-            <ul class="footer-list">
-                <li><a href="#village-info">O obci</a></li>
-                <li><a href="{{ route('news.index') }}">Aktuality</a></li>
-                <li><a href="{{ route('register') }}">Přihlášení</a></li>
-            </ul>
-        </div>
-
         <div class="footer-section footer-map">
             <h3 class="footer-heading">Mapa</h3>
             <iframe 

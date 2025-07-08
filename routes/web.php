@@ -5,15 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HuntingAssociationController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\NewsController;
 
 Route::get('/hasici', function () {
     return view('ff');
 })->name('ff');
 
 // aktuality
-Route::get('/news', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{news}', [\App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -24,6 +22,8 @@ Route::get('/', [HuntingAssociationController::class, 'index'])
 Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+
+Route::get('/news', [NewsController::class, 'index'])->name('news');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

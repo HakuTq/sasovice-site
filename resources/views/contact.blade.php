@@ -56,9 +56,9 @@
         </div>
       @endforeach
     </div>
-  </div>
-  <div class="pagination">
-    {{ $contacts->links() }}
+    <div class="pagination">
+      {{ $contacts->links() }}
+    </div>
   </div>
 </div>
 @endsection
