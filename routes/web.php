@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HuntingAssociationController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ContactsController;
 
 Route::get('/hasici', function () {
     return view('ff');
@@ -19,9 +21,9 @@ Route::get('/dashboard', function () {
 Route::get('/', [HuntingAssociationController::class, 'index'])
      ->name('hunting.association');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
+
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="hs-wrapper">
+    <!-- Image -->
     <div class="welcome-img-wrapper">
         <img class="welcome-img" 
-            src="{{ asset('storage/images/sasovice.jpeg') }}" 
+            src="{{ asset('storage/images/main-photo.jpg') }}" 
             alt="Welcome Image"
             loading="lazy"
             decoding="async">
@@ -47,7 +48,7 @@
     </section>
 
     <!-- Gallery Section -->
-        <section class="hs-section">
+    <section class="hs-section">
         <div class="section-container">
             <h2 class="hs-heading">Galerie</h2>
             
@@ -70,6 +71,7 @@
                 <!-- Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
+            <a class="view-all" href="#">Zobrazit všechny fotografie</a>
         </div>
     </section>
 
@@ -93,162 +95,147 @@
         </div>
     </section>
 
-    <!-- Interactive Map -->
-    <section class="hs-section">
-        <div class="section-container">
-            <h2 class="hs-heading">Interaktivní mapa honitby</h2>
-            <div class="hs-map">
-                <iframe 
-                    src="https://portal.nasemapy.cz/app/mysliveckyportal/honitby/view/" 
-                    class="map-iframe"
-                    id="map-iframe"
-                    scrolling="no"
-                ></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Hunting Calendar -->
-    <section class="hs-section" id="calendar-section">
-        <div class="section-container">
-            <h2 class="hs-heading">Myslivecký kalendář</h2>
-            <div class="hs-calendar">
-                <div class="calendar-controls">
-                    <div class="current-month">
-                        {{ $currentDate->translatedFormat('F Y') }}
-                    </div>
-                    <div class="nav-buttons">
-                        <button id="prev-month">&lt; Předchozí</button>
-                        <button id="next-month">Další &gt;</button>
-                    </div>
+<!-- Hunting Calendar -->
+<section class="hs-section" id="calendar-section">
+    <div class="section-container">
+        <h2 class="hs-heading">Myslivecký kalendář</h2>
+        <div class="hs-calendar">
+            <div class="calendar-controls">
+                <div class="current-week">
+                    {{ $currentWeekStart->format('d.m.Y') }} - {{ $currentWeekStart->copy()->addDays(6)->format('d.m.Y') }}
                 </div>
+                <div class="nav-buttons">
+                    <button id="prev-week">&lt; Předchozí</button>
+                    <button id="next-week">Další &gt;</button>
+                </div>
+            </div>
+            
+            <div class="calendar-grid">
+                @foreach (['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'] as $day)
+                <div class="day-header">{{ $day }}</div>
+                @endforeach
                 
-                <div class="calendar-grid">
-                    @foreach (['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'] as $day)
-                    <div class="day-header">{{ $day }}</div>
-                    @endforeach
+                @foreach ($days as $day)
+                <div class="calendar-day {{ $day['date']->isToday() ? 'today current-day' : '' }}">
+                    <div class="day-number">
+                        {{ $day['date']->day }}. {{ $day['date']->translatedFormat('M') }}
+                    </div>
                     
-                    @foreach ($days as $day)
-                    <div class="calendar-day {{ $day['currentMonth'] ? 'current-month' : 'other-month' }} {{ $day['date']->isToday() ? 'today' : '' }}">
-                        <div class="day-number">{{ $day['date']->day }}</div>
-                        
-                        <!-- Game list -->
-                        <div class="game-list">
-                            @foreach ($day['game'] as $species)
-                            <div class="game-item" 
-                                 data-category="{{ $species->category() }}"
-                                 title="{{ $species->displayName() }} ({{ $species->category() }})">
-                                {{ $species->displayName() }}
-                            </div>
-                            @endforeach
+                    <!-- Game list -->
+                    <div class="game-list">
+                        @foreach ($day['game'] as $species)
+                        <div class="game-item" 
+                             data-category="{{ $species->category() }}"
+                             title="{{ $species->displayName() }} ({{ $species->category() }})">
+                            {{ $species->displayName() }}
                         </div>
-                        
-                        <!-- Astronomical information -->
-                        <div class="astro-info">
-                            <div class="sun-info" title="Východ slunce: {{ $day['astro']['sunrise'] }}, Západ slunce: {{ $day['astro']['sunset'] }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="astro-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
-                                <span class="astro-time">{{ $day['astro']['sunrise'] }}</span>
-                                <span class="astro-time">{{ $day['astro']['sunset'] }}</span>
-                            </div>
-                            <div class="moon-info" title="Východ měsíce: {{ $day['astro']['moonrise'] }}, Západ měsíce: {{ $day['astro']['moonset'] }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="astro-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                                </svg>
-                                <span class="astro-time">{{ $day['astro']['moonrise'] }}</span>
-                                <span class="astro-time">{{ $day['astro']['moonset'] }}</span>
-                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <!-- Astronomical information -->
+                    <div class="astro-info">
+                        <div class="sun-info" title="Východ slunce: {{ $day['astro']['sunrise'] }}, Západ slunce: {{ $day['astro']['sunset'] }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="astro-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <span class="astro-time">{{ $day['astro']['sunrise'] }}</span>
+                            <span class="astro-time">{{ $day['astro']['sunset'] }}</span>
+                        </div>
+                        <div class="moon-info" title="Východ měsíce: {{ $day['astro']['moonrise'] }}, Západ měsíce: {{ $day['astro']['moonset'] }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="astro-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                            <span class="astro-time">{{ $day['astro']['moonrise'] }}</span>
+                            <span class="astro-time">{{ $day['astro']['moonset'] }}</span>
                         </div>
                     </div>
-                    @endforeach
                 </div>
-                
-                <div class="calendar-events">
-                    <h3>Nadcházející akce</h3>
-                    <div class="event-item">
-                        <div class="event-date">15. 10.</div>
-                        <div class="event-desc">Zahájení lovu srnčí zvěře</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">28. 10.</div>
-                        <div class="event-desc">Kolektivní naháňka</div>
-                    </div>
+                @endforeach
+            </div>
+            
+            <div class="calendar-events">
+                <h3>Nadcházející akce</h3>
+                <div class="event-item">
+                    <div class="event-date">15. 10.</div>
+                    <div class="event-desc">Zahájení lovu srnčí zvěře</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">28. 10.</div>
+                    <div class="event-desc">Kolektivní naháňka</div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
-
+    </div>
+</section>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const iframe = document.getElementById('map-iframe');
-    
-    // Fix scrolling issue
-    iframe.addEventListener('mouseover', function() {
-        document.body.style.overflow = 'hidden';
-    });
-    
-    iframe.addEventListener('mouseout', function() {
-        document.body.style.overflow = '';
-    });
-    
-    // Fix iframe height on mobile
-    function resizeIframe() {
-        if (window.innerWidth < 768) {
-            iframe.style.height = '300px';
-        } else {
-            iframe.style.height = '500px';
-        }
-    }
-    
-    // Initial resize
-    resizeIframe();
-    
-    // Resize on window change
-    window.addEventListener('resize', resizeIframe);
-
-            const gallerySwiper = new Swiper('.hs-gallery', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
-                1280: {
-                    slidesPerView: 4,
-                }
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('map-iframe');
+        
+        // Fix scrolling issue
+        iframe.addEventListener('mouseover', function() {
+            document.body.style.overflow = 'hidden';
         });
-});
+        
+        iframe.addEventListener('mouseout', function() {
+            document.body.style.overflow = '';
+        });
+        
+        // Fix iframe height on mobile
+        function resizeIframe() {
+            if (window.innerWidth < 768) {
+                iframe.style.height = '300px';
+            } else {
+                iframe.style.height = '500px';
+            }
+        }
+        
+        // Initial resize
+        resizeIframe();
+        
+        // Resize on window change
+        window.addEventListener('resize', resizeIframe);
 
-document.getElementById('prev-month').addEventListener('click', function() {
-    const current = new Date('{{ $currentDate->format("Y-m-d") }}');
-    const prevMonth = new Date(current.getFullYear(), current.getMonth() - 1, 1);
-    const year = prevMonth.getFullYear();
-    const month = (prevMonth.getMonth() + 1).toString().padStart(2, '0');
-    window.location.href = '{{ route("hunting.association") }}?month=' + year + '-' + month + '#calendar-section';
-});
+                const gallerySwiper = new Swiper('.hs-gallery', {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                    1280: {
+                        slidesPerView: 4,
+                    }
+                }
+            });
+    });
 
-document.getElementById('next-month').addEventListener('click', function() {
-    const current = new Date('{{ $currentDate->format("Y-m-d") }}');
-    const nextMonth = new Date(current.getFullYear(), current.getMonth() + 1, 1);
-    const year = nextMonth.getFullYear();
-    const month = (nextMonth.getMonth() + 1).toString().padStart(2, '0');
-    window.location.href = '{{ route("hunting.association") }}?month=' + year + '-' + month + '#calendar-section';
-});
+    document.getElementById('prev-week').addEventListener('click', function() {
+        const currentMonday = '{{ $currentWeekStart->format("Y-m-d") }}';
+        const prevMonday = new Date(currentMonday);
+        prevMonday.setDate(prevMonday.getDate() - 7);
+        const formatted = prevMonday.toISOString().split('T')[0];
+        window.location.href = '{{ route("hunting.association") }}?week=' + formatted + '#calendar-section';
+    });
+
+    document.getElementById('next-week').addEventListener('click', function() {
+        const currentMonday = '{{ $currentWeekStart->format("Y-m-d") }}';
+        const nextMonday = new Date(currentMonday);
+        nextMonday.setDate(nextMonday.getDate() + 7);
+        const formatted = nextMonday.toISOString().split('T')[0];
+        window.location.href = '{{ route("hunting.association") }}?week=' + formatted + '#calendar-section';
+    });
 </script>
 @endsection

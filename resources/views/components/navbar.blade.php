@@ -9,5 +9,11 @@
         @else
             <a href="{{ route('contact') }}" class="navbar-link">Kontakt</a>
         @endif
+
+        @if(request()->routeIs('gallery'))
+            <span class="navbar-link active">Galerie</span>
+        @else
+            <a href="{{ route('gallery') }}" class="navbar-link">Galerie</a>
+        @endif
     </div>
 </div>

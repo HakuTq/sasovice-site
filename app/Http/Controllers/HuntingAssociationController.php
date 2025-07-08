@@ -9,70 +9,36 @@ use Carbon\Carbon;
 class HuntingAssociationController extends Controller
 {
     const LATITUDE = 49.1236;
-    const LONGITUDE = 16.3533;
+    const LONGITUDE = 15.6733;
     const TIMEZONE = 'Europe/Prague';
 
     public function index(Request $request)
     {
-        $monthParam = $request->query('month');
+        $weekParam = $request->query('week');
         
         try {
-            $currentDate = $monthParam 
-                ? Carbon::createFromFormat('Y-m', $monthParam)->startOfMonth()
-                : now()->startOfMonth();
+            $monday = $weekParam 
+                ? Carbon::parse($weekParam)
+                : now()->startOfWeek();
         } catch (\Exception $e) {
-            $currentDate = now()->startOfMonth();
+            $monday = now()->startOfWeek();
         }
         
-        $daysInMonth = $currentDate->daysInMonth;
-        $year = $currentDate->year;
-        $month = $currentDate->month;
-        $firstDay = Carbon::create($year, $month, 1);
-        
-        // Generate calendar days
+        // Generate calendar days for a week
         $days = [];
-        $startOffset = $firstDay->dayOfWeekIso - 1; // Monday=1, Sunday=7
-        
-        // Previous month days
-        $prevMonth = $currentDate->copy()->subMonth();
-        $prevMonthDays = $prevMonth->daysInMonth;
-        for ($i = $startOffset - 1; $i >= 0; $i--) {
-            $day = $prevMonthDays - $i;
-            $date = Carbon::create($prevMonth->year, $prevMonth->month, $day);
+        for ($i = 0; $i < 7; $i++) {
+            $date = $monday->copy()->addDays($i);
             $days[] = [
                 'date' => $date,
                 'game' => $this->getGameForDate($date),
-                'currentMonth' => false,
-                'astro' => $this->getAstronomicalData($date)
-            ];
-        }
-        
-        // Current month days
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $date = Carbon::create($year, $month, $day);
-            $days[] = [
-                'date' => $date,
-                'game' => $this->getGameForDate($date),
-                'currentMonth' => true,
-                'astro' => $this->getAstronomicalData($date)
-            ];
-        }
-        
-        // Next month days
-        $totalCells = 42; // 6 weeks
-        $nextMonth = $currentDate->copy()->addMonth();
-        $remaining = $totalCells - count($days);
-        for ($day = 1; $day <= $remaining; $day++) {
-            $date = Carbon::create($nextMonth->year, $nextMonth->month, $day);
-            $days[] = [
-                'date' => $date,
-                'game' => $this->getGameForDate($date),
-                'currentMonth' => false,
                 'astro' => $this->getAstronomicalData($date)
             ];
         }
 
-        return view('hs', compact('days', 'currentDate'));
+        return view('hs', [
+            'days' => $days,
+            'currentWeekStart' => $monday
+        ]);
     }
     
     private function getGameForDate(Carbon $date)
