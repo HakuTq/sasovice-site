@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="hs-wrapper">
+    <div class="welcome-img-wrapper">
+        <img class="welcome-img" 
+            src="{{ asset('storage/images/sasovice.jpeg') }}" 
+            alt="Welcome Image"
+            loading="lazy"
+            decoding="async">
+        <div class="welcome-img-overlay"></div>
+    </div>
+
     <!-- Info Section -->
     <section class="hs-section">
         <div class="section-container">
