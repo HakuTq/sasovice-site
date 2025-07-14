@@ -920,10 +920,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.pagination {
-    padding-top: 10px;
-}
-
 .news-section {
     padding-top: 4rem;
     min-height: 100vh;
@@ -1088,79 +1084,80 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 
-    // Pagination styling
-    .pagination {
-        padding: 2rem 0;
-        margin-left: 6rem;
-        margin-right: 6rem;
-        display: flex;
-        justify-content: center;
-        
-        @media (max-width: 1200px) {
-            margin-left: 3rem;
-            margin-right: 3rem;
+}
+
+.pagination {
+    padding: 2rem 0;
+    margin-left: 6rem;
+    margin-right: 6rem;
+    display: flex;
+    justify-content: center;
+    
+    @media (max-width: 1200px) {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+    
+    // Laravel pagination links styling
+    nav {
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        @media (max-width: 768px) {
-            margin-left: 1.5rem;
-            margin-right: 1.5rem;
-        }
-        
-        // Laravel pagination links styling
-        nav {
-            .flex {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
+        a, span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
             
-            a, span {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 40px;
-                height: 40px;
-                padding: 0.5rem 1rem;
-                border-radius: 8px;
-                text-decoration: none;
-                font-weight: 500;
-                transition: all 0.3s ease;
-                font-size: 0.95rem;
+            &:not([aria-current]):not(.disabled) {
+                background: rgba(white, 0.8);
+                color: $forest-dark;
+                border: 1px solid rgba($forest-light, 0.3);
                 
-                &:not([aria-current]):not(.disabled) {
-                    background: rgba(white, 0.8);
-                    color: $forest-dark;
-                    border: 1px solid rgba($forest-light, 0.3);
-                    
-                    &:hover {
-                        background: rgba($moss-green, 0.1);
-                        color: $moss-green;
-                        border-color: $moss-green;
-                        transform: translateY(-1px);
-                    }
-                }
-                
-                &[aria-current="page"] {
-                    background: linear-gradient(135deg, $forest-dark, $forest-medium);
-                    color: white;
-                    border: 1px solid $forest-dark;
-                    box-shadow: 0 4px 15px rgba($forest-dark, 0.3);
-                }
-                
-                &.disabled {
-                    background: rgba($stone-gray, 0.1);
-                    color: rgba($stone-gray, 0.5);
-                    cursor: not-allowed;
-                    border: 1px solid rgba($stone-gray, 0.2);
+                &:hover {
+                    background: rgba($moss-green, 0.1);
+                    color: $moss-green;
+                    border-color: $moss-green;
+                    transform: translateY(-1px);
                 }
             }
             
-            .hidden {
-                display: none;
+            &[aria-current="page"] {
+                background: linear-gradient(135deg, $forest-dark, $forest-medium);
+                color: white;
+                border: 1px solid $forest-dark;
+                box-shadow: 0 4px 15px rgba($forest-dark, 0.3);
             }
+            
+            &.disabled {
+                background: rgba($stone-gray, 0.1);
+                color: rgba($stone-gray, 0.5);
+                cursor: not-allowed;
+                border: 1px solid rgba($stone-gray, 0.2);
+            }
+        }
+        
+        .hidden {
+            display: none;
         }
     }
 }
+
 
 // Enhanced responsive design
 @media (max-width: 768px) {
