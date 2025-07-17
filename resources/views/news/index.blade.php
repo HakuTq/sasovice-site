@@ -7,13 +7,15 @@
 
     <div class="news-container">
         @forelse($news as $article)
-            <div class="news-article">
-                <div class="news-meta">
-                    <span class="news-date">{{ $article['date'] }}</span>
+            <a href="{{ route('news.show', $article['id']) }}">
+                <div class="news-article">
+                    <div class="news-meta">
+                        <span class="news-date">{{ $article['date'] }}</span>
+                    </div>
+                    <h2 class="news-title">{{ $article['title'] }}</h2>
+                    <p class="news-excerpt">{{ $article['text'] }}</p>
                 </div>
-                <h2 class="news-title">{{ $article['title'] }}</h2>
-                <p class="news-excerpt">{{ $article['text'] }}</p>
-            </div>
+            </a>
         @empty
             <div class="no-articles">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

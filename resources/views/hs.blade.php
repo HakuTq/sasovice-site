@@ -12,7 +12,7 @@
         <div class="welcome-img-overlay"></div>
         <div>
             <h1 class="welcome-title">Vítejte v honitbě Šašovice</h1>
-            <p class="welcome-subtitle">Spolek myslivců a přátel přírody</p>
+            <p class="welcome-subtitle">Spolek myslivců a .....</p>
         </div>
     </div>
 
@@ -58,14 +58,16 @@
     <!-- News Section -->
     <section class="hs-section">
         <div class="section-container">
-            <h2 class="hs-heading">Aktuality</h2>
+            <h2 class="hs-heading hs-heading--news">Aktuality</h2>
             <div class="hs-news">
                 @foreach ($news as $item)
-                    <div class="news-item">
-                        <h3 class="news-title">{{ $item['title'] }}</h3>
-                        <span class="news-date">{{ $item['date'] }}</span>
-                        <p>{{ $item['text'] }}</p>
-                    </div>
+                    <a href="{{ route('news.show', $item['id']) }}">
+                        <div class="news-item">
+                            <h3 class="news-title">{{ $item['title'] }}</h3>
+                            <span class="news-date">{{ $item['date'] }}</span>
+                            <p>{{ $item['text'] }}</p>
+                        </div>
+                    </a>
                 @endforeach
             </div>
             <div class="hs-news-more">
