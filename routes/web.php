@@ -6,6 +6,8 @@ use App\Http\Controllers\HuntingAssociationController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\LanguageController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,13 +21,14 @@ Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 Route::get('/news', [NewsController::class, 'index'])->name('news');
-
 Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+
+Route::get('/land', function () {
+    return view('land');
+})->name('land');
+
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 require __DIR__.'/auth.php';
