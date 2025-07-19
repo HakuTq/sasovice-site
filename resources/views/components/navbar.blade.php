@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="navbar-left">
 
-        <a href="{{ route('hunting.association') }}">Honební společenstvo Šašovice</a>
+        <a href="{{ route('hunting.association') }}">{{__('Honební společenstvo Šašovice')}}</a>
     </div>
     <div class="navbar-right">
 
