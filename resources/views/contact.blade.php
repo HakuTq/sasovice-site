@@ -7,7 +7,6 @@
     
     <div class="contact-container">
       @foreach ($contacts as $contact)
-        {{-- Contact Card 1 --}}
         <div class="contact-card">
           <div class="card-header">
             <h3 class="contact-name">{{ $contact['name'] }}</h3>
