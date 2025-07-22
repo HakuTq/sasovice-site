@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Šašovice</title>
+    <title>HS Šašovice</title>
+
+    <link rel="icon" href="{{ asset('storage/images/strom.svg') }}" type="image/svg+xml">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
