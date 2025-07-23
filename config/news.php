@@ -6,6 +6,7 @@ return [
         'date' => '2025-07-08',
         'title' => 'Annual Meeting Announcement',
         'text' => '<p>The annual meeting of the Association will take place on August 15th, 2025 at the main hall in <b>Prague.</b></p> All members are welcome. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'text.de' => '<p>Die jährliche Sitzung der Vereinigung findet am 15. August 2025 im Hauptsaal in <b>Prag</b> statt.</p> Alle Mitglieder sind willkommen. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     ],
     [
         'id' => 2,

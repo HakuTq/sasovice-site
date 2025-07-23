@@ -7,7 +7,11 @@
 
     <div class="news-show-container">
         <p class="news-show-date">{{ $newsItem['date'] }}</p>
-        <div class="news-show-text">{!! $newsItem['text'] !!}</div>
+        @if (app()->getLocale() === 'de')
+            <div class="news-show-text">{!! $newsItem['text.de'] !!}</div>
+        @else
+            <div class="news-show-text">{!! $newsItem['text'] !!}</div>
+        @endif
     </div>
 </div>
 @endsection
