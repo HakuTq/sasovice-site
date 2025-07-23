@@ -1,7 +1,7 @@
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-section">
-            <h3 class="footer-heading">Kontakt</h3>
+            <h3 class="footer-heading">{{__('Kontakt')}}</h3>
             <ul class="footer-list">
                 <li>Obec Šašovice</li>
                 <li>Šašovice 123</li>
@@ -12,7 +12,7 @@
         </div>
 
         <div class="footer-section footer-map">
-            <h3 class="footer-heading">Mapa</h3>
+            <h3 class="footer-heading">{{__('Mapa')}}</h3>
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10444.84970670358!2d15.66292957785139!3d49.120600635335244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d381ac516fe2f%3A0x9952300e29488ed5!2zxaBhxaFvdmljZSwgNjc1IDI2IMW9ZWxldGF2YQ!5e0!3m2!1scs!2scz!4v1745870546685!5m2!1scs!2scz" 
                 width="100%" 

@@ -19,12 +19,14 @@
     <!-- Info Section -->
     <section class="hs-section">
         <div class="section-container">
-            <h1 class="hs-heading">Honební společenstvo Šašovice</h1>
+            <h1 class="hs-heading">{{__('Honební společenstvo Šašovice')}}</h1>
             <div class="hs-info">
                 <div class="hs-description">
-                    <p>Honitba má převážně polní charakter, hlavními druhy zvěře jsou srnčí a černá zvěř, ze zvěře drobné se vyskytuje zejména zajíc polní.
-                    Myslivci se věnují péči o zvěř a krajinu – pravidelně přikrmují zvěř v období nouze, udržují a budují myslivecká zařízení, zakládají krytová a klidová místa a zajišťují regulaci stavů zvěře, především spárkaté.
-                    Společenstvo aktivně spolupracuje s místními obcemi, sbory dobrovolných hasičů i zemědělskými subjekty. Podílí se také na kulturním dění, např. pořádáním poslední leče nebo účastí na dětských dnech.</p>
+                    <p>
+                        {{__('Honitba má převážně polní charakter, hlavními druhy zvěře jsou srnčí a černá zvěř, ze zvěře drobné se vyskytuje zejména zajíc polní.
+                        Myslivci se věnují péči o zvěř a krajinu – pravidelně přikrmují zvěř v období nouze, udržují a budují myslivecká zařízení, zakládají krytová a klidová místa a zajišťují regulaci stavů zvěře, především spárkaté.
+                        Společenstvo aktivně spolupracuje s místními obcemi, sbory dobrovolných hasičů i zemědělskými subjekty. Podílí se také na kulturním dění, např. pořádáním poslední leče nebo účastí na dětských dnech.')}}
+                    </p>
                     
                     <div class="info-item">
                         <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +34,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                         <div>
-                            <strong>Katastrální území:</strong> Šašovice a Meziříčko
+                            <strong>{{__('Katastrální území:')}}</strong> {{__('Šašovice a Meziříčko')}}
                         </div>
                     </div>
                     
@@ -41,7 +43,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         <div>
-                            <strong>Založení:</strong> 1993
+                            <strong>{{__('Založení:')}}</strong> 1993
                         </div>
                     </div>
 
@@ -50,7 +52,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM9 9h6m-6 4h6"/>
                         </svg>
                         <div>
-                            <strong>Rozloha:</strong> 998 ha
+                            <strong>{{__('Rozloha:')}}</strong> 998 ha
                         </div>
                     </div>
 
@@ -60,7 +62,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/>
                         </svg>
                         <div>
-                            <strong>Počet členů:</strong> 19
+                            <strong>{{__('Počet členů:')}}</strong> 19
                         </div>
                     </div>
                 </div>
@@ -79,20 +81,28 @@
     <!-- News Section -->
     <section class="hs-section">
         <div class="section-container">
-            <h2 class="hs-heading hs-heading--news">Aktuality</h2>
+            <h2 class="hs-heading hs-heading--news">{{__('Aktuality')}}</h2>
             <div class="hs-news">
                 @foreach ($news as $item)
                     <a href="{{ route('news.show', $item['id']) }}">
                         <div class="news-item">
-                            <h3 class="news-title">{{ $item['title'] }}</h3>
+                            @if (app()->getLocale() === 'de')
+                                <h3 class="news-title">{{ $item['title.de'] }}</h3>
+                            @else
+                                <h3 class="news-title">{{ $item['title'] }}</h3>
+                            @endif
                             <span class="news-date">{{ $item['date'] }}</span>
-                            <p>{!! $item['text'] !!}</p>
+                            @if (app()->getLocale() === 'de')
+                                <div class="news-text">{!! $item['text.de'] !!}</div>
+                            @else
+                                <div class="news-text">{!! $item['text'] !!}</div>
+                            @endif
                         </div>
                     </a>
                 @endforeach
             </div>
             <div class="hs-news-more">
-                <a href="{{ route('news') }}" class="hs-link">Zobrazit všechny aktuality</a>
+                <a href="{{ route('news') }}" class="hs-link">{{__('Zobrazit všechny aktuality')}}</a>
             </div>
         </div>
     </section>

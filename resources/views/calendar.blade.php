@@ -4,21 +4,21 @@
 <!-- Hunting Calendar -->
 <section class="hs-section" id="calendar-section" style="padding-top: 4rem;">
     <div class="section-container">
-        <h2 class="hs-heading">Myslivecký kalendář</h2>
+        <h2 class="hs-heading">{{__('Myslivecký kalendář')}}</h2>
         <div class="hs-calendar">
             <div class="calendar-controls">
                 <div class="current-week">
                     {{ $currentWeekStart->format('d.m.Y') }} - {{ $currentWeekStart->copy()->addDays(6)->format('d.m.Y') }}
                 </div>
                 <div class="nav-buttons">
-                    <button id="prev-week">&lt; Předchozí</button>
-                    <button id="next-week">Další &gt;</button>
+                    <button id="prev-week">&lt; {{__('Předchozí')}}</button>
+                    <button id="next-week">{{__('Další')}} &gt;</button>
                 </div>
             </div>
             
             <div class="calendar-grid">
                 @foreach (['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'] as $day)
-                <div class="day-header">{{ $day }}</div>
+                <div class="day-header">{{ __($day) }}</div>
                 @endforeach
                 
                 @foreach ($days as $day)
@@ -60,7 +60,7 @@
             </div>
             
             <div class="calendar-events">
-                <h3>Nadcházející akce</h3>
+                <h3>{{__('Nadcházející akce')}}</h3>
                 @foreach ($calendarEvents as $event)
                 <div class="event-item">
                     <div class="event-date">{{ $event['date'] }}</div>

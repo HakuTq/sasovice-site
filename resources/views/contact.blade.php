@@ -3,8 +3,8 @@
 @section('content')
 <div class="contact-section">
   <div class="section-container">
-    <h2 class="contact-heading">Kontaktní osoby</h2>
-    
+    <h2 class="contact-heading">{{__('Kontaktní osoby')}}</h2>
+
     <div class="contact-container">
       @foreach ($contacts as $contact)
         <div class="contact-card">
