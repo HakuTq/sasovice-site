@@ -45,6 +45,17 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
 }
 
+.contact-section{
+    min-height: 100vh;
+}
+
+.land{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -1182,6 +1193,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .news-show-text {
+    width: 100%;
     font-size: 1.2rem;
     color: black;
     line-height: 1.5;
@@ -1678,6 +1690,10 @@ h1, h2, h3, h4, h5, h6 {
         margin-right: .2rem;
     }
 
+    .calendar-events {
+        padding: 0.5rem !important;
+    }
+
     .gallery {
         h2 {
             font-size: 1.6rem;
@@ -1785,6 +1801,8 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 800px) {
     .navbar-left { margin-left: 1rem; }
     .navbar-right { margin-right: 1rem; }
+    .news-show-container { padding: 0 1rem; }
+    .news-show-text { padding: 0 !important; }
     
     .welcome-title { font-size: 2.5rem; width: 80%;}
     .welcome-subtitle { font-size: 1rem; width: 80% }

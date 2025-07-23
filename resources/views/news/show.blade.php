@@ -7,7 +7,7 @@
 
     <div class="news-show-container">
         <p class="news-show-date">{{ $newsItem['date'] }}</p>
-        <p class="news-show-text">{!! $newsItem['text'] !!}</p>
+        <div class="news-show-text">{!! $newsItem['text'] !!}</div>
     </div>
 </div>
 @endsection

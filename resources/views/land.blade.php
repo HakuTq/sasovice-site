@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-<section class="hs-section" id="calendar-section" style="padding-top: 4rem;">
+<section class="hs-section land" id="calendar-section" style="padding-top: 4rem;">
     <div class="section-container">
         <h2 class="hs-heading">Katastr</h2>
         <div class="panzoom-container">
