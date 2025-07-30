@@ -11,6 +11,15 @@
             </ul>
         </div>
 
+        <div class="footer-section">
+            <h3 class="footer-heading">{{__('Rychlé odkazy')}}</h3>
+            <ul class="footer-list">
+                <li><a href="{{ route('hunting.association') }}">{{__('Domů')}}</a></li>
+                <li><a href="{{ route('contact') }}">{{__('Kontakty')}}</a></li>
+                <li><a href="{{ route('downloads') }}">{{__('Ke stažení')}}</a></li>
+            </ul>
+        </div>
+
         <div class="footer-section footer-map">
             <h3 class="footer-heading">{{__('Mapa')}}</h3>
             <iframe 

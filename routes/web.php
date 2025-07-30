@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\DownloadsController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,6 +29,8 @@ Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/land', function () {
     return view('land');
 })->name('land');
+
+Route::get('/downloads', [DownloadsController::class, 'index'])->name('downloads');
 
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
